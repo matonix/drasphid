@@ -1,0 +1,7 @@
+resolver: lts-11.9
+packages:
+- .
+extra-deps:
+- extensible-0.4.9
+- taggy-0.2.1
+- taggy-lens-0.1.2

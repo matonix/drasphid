@@ -1,0 +1,16 @@
+output: ./resources/output.yaml
+feet:
+  # - https://www21.atwiki.jp/asigami/pages/1418.html
+  # - https://www21.atwiki.jp/asigami/pages/1056.html
+  # - https://www21.atwiki.jp/asigami/pages/558.html
+  # - https://www21.atwiki.jp/asigami/pages/335.html
+  # - https://www21.atwiki.jp/asigami/pages/234.html
+  # - https://www21.atwiki.jp/asigami/pages/13.html
+  # - https://www21.atwiki.jp/asigami/pages/14.html
+  # - https://www21.atwiki.jp/asigami/pages/15.html
+  # - https://www21.atwiki.jp/asigami/pages/17.html
+  # - https://www21.atwiki.jp/asigami/pages/18.html
+  - foot: 18
+    url: https://www21.atwiki.jp/asigami/pages/19.html
+  - foot: 19
+    url: https://www21.atwiki.jp/asigami/pages/436.html
