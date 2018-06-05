@@ -2,7 +2,9 @@
 module Run (run) where
 
 import Import
+import Scraper.Wiki
 
 run :: RIO App ()
 run = do
-  logInfo "We're inside the application!"
+  logInfo "Putting JSON of songs now..."
+  liftIO $ mkSongs >>= putSongsJson

@@ -1,4 +1,4 @@
-output: ./resources/output.yaml
+output: ../resources/output.yaml
 feet:
   # - https://www21.atwiki.jp/asigami/pages/1418.html
   # - https://www21.atwiki.jp/asigami/pages/1056.html

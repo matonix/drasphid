@@ -1,27 +1,22 @@
 {-# LANGUAGE OverloadedStrings #-}
 module Scraper.Wiki where
 
-import RIO
+import Import
 import qualified RIO.Text as Text
 import qualified RIO.Text.Lazy as TL
-import Scraper.Config
-import Scraper.Song
 import Network.Wreq.StringLess
 import Text.Taggy.Lens
 import Control.Lens (ix, only, (^..), (^?))
 
-import Data.Yaml (encodeFile)
+import Data.Aeson.Text (encodeToLazyText)
 
-type SongsByFeet = [(Int, [Song])]
+putSongsJson :: [SongsByFoot] -> IO ()
+putSongsJson = writeFileUtf8 (config ^. #output) . TL.toStrict . encodeToLazyText
 
-
-f :: SongsByFeet -> IO ()
-f = encodeFile (config ^. #output)
-
-mkSongs :: IO [(Int, [Song])]
+mkSongs :: IO [SongsByFoot]
 mkSongs = forM (config ^. #feet) $ \feet -> do
   res <- get $ feet ^. #url
-  return (feet ^. #foot, mkSong res)
+  return $ SongsByFoot (feet ^. #foot) (mkSong res)
 
 mkSong :: Response LByteString -> [Song]
 mkSong res = catMaybes $ res ^.. responseBody
