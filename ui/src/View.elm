@@ -1,10 +1,12 @@
 module View exposing (..)
 
-import Html exposing (..)
+import Html exposing (Html, div, h1, table, tbody, td, text, thead, tr)
 import Html.Attributes exposing (class, href)
 import List exposing (head)
+import Material.Color as Color
+import Material.Layout as Layout
 import Models exposing (..)
-import Msgs exposing (Msg)
+import Msgs exposing (Msg(..))
 import RemoteData exposing (WebData)
 
 
@@ -12,26 +14,12 @@ view : Model -> Html Msg
 view model =
     div
         []
-        [ page model ]
+        [ response model ]
 
 
-page : Model -> Html Msg
-page model =
-    div []
-        [ nav
-        , maybeSongs model.allSongs
-        ]
-
-
-nav : Html Msg
-nav =
-    div [ class "clearfix mb2 white bg-black" ]
-        [ div [ class "left p2" ] [ text "Drasphid" ] ]
-
-
-maybeSongs : WebData AllSongs -> Html Msg
-maybeSongs response =
-    case response of
+response : Model -> Html Msg
+response model =
+    case model.allSongs of
         RemoteData.NotAsked ->
             text ""
 
@@ -39,10 +27,40 @@ maybeSongs response =
             text "Loading..."
 
         RemoteData.Success allSongs ->
-            viewAllSongs allSongs
+            page model allSongs
 
         RemoteData.Failure error ->
             text (toString error)
+
+
+page : Model -> AllSongs -> Html Msg
+page model allSongs =
+    Layout.render Mdl
+        model.mdl
+        [ Layout.fixedHeader
+        ]
+        { header = header model
+        , drawer = []
+        , tabs =
+            ( tabTitles allSongs
+            , [ Color.background (Color.color model.layout.primary Color.S400) ]
+            )
+        , main = [ viewAllSongs allSongs ]
+        }
+
+
+header : Model -> List (Html Msg)
+header model =
+    [ Layout.row [ Color.background (Color.color model.layout.primary Color.S600) ]
+        [ Layout.title []
+            [ text "Drasphid" ]
+        ]
+    ]
+
+
+tabTitles : AllSongs -> List (Html Msg)
+tabTitles =
+    .songsByfoot >> List.map (.foot >> toString >> text)
 
 
 viewAllSongs : AllSongs -> Html Msg

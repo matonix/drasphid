@@ -1,16 +1,23 @@
 module Models exposing (..)
 
+import Layout
+import Material
+import Material.Color as Color
 import RemoteData exposing (WebData)
 
 
 type alias Model =
     { allSongs : WebData AllSongs
+    , mdl : Material.Model
+    , layout : Layout.Model
     }
 
 
 initModel : Model
 initModel =
     { allSongs = RemoteData.Loading
+    , mdl = Material.model
+    , layout = Layout.model
     }
 
 
