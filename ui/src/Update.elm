@@ -7,12 +7,5 @@ import Msgs exposing (Msg(..))
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
-        SetModel newModel ->
-            ( newModel
-            , Cmd.none
-            )
-
-        NoOp ->
-            ( model
-            , Cmd.none
-            )
+        OnFetchAllSongs response ->
+            ( { model | allSongs = response }, Cmd.none )

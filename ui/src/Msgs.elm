@@ -1,8 +1,8 @@
 module Msgs exposing (..)
 
 import Models exposing (AllSongs)
+import RemoteData exposing (WebData)
 
 
 type Msg
-    = NoOp
-    | SetModel Model
+    = OnFetchAllSongs (WebData AllSongs)
