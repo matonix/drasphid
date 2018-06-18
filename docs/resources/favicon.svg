@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="14.742909"
+   height="14.781902"
+   viewBox="0 0 3.9007281 3.9110449"
+   version="1.1"
+   id="svg8"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)"
+   sodipodi:docname="favicon.svg"
+   inkscape:export-filename="/home/maton/work/drasphid/docs/resources/favicon.png"
+   inkscape:export-xdpi="833.48541"
+   inkscape:export-ydpi="833.48541">
+  <defs
+     id="defs2" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="32"
+     inkscape:cx="7.7709369"
+     inkscape:cy="4.7430829"
+     inkscape:document-units="px"
+     inkscape:current-layer="text3715"
+     showgrid="false"
+     units="px"
+     inkscape:window-width="1920"
+     inkscape:window-height="1029"
+     inkscape:window-x="0"
+     inkscape:window-y="25"
+     inkscape:window-maximized="1"
+     fit-margin-top="2"
+     fit-margin-left="2"
+     fit-margin-right="2"
+     fit-margin-bottom="2"
+     inkscape:pagecheckerboard="true"
+     inkscape:snap-global="false">
+    <inkscape:grid
+       type="xygrid"
+       id="grid4557"
+       originx="-36.41709"
+       originy="-7.5694686" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="レイヤー 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-35.972589,-269.40543)">
+    <g
+       aria-label="DrasphiD"
+       transform="matrix(0.88351025,0,0,1.1318488,-2.3623512,-9.874628)"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.35048294px;line-height:1.25;font-family:Ubuntu;-inkscape-font-specification:Ubuntu;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.23376207"
+       id="text3715">
+      <rect
+         style="fill:#3949ab;fill-opacity:1;stroke-width:0.06184955"
+         id="rect872"
+         width="4.4452329"
+         height="3.4845159"
+         x="43.389355"
+         y="246.74695" />
+      <path
+         style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.28167135px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="m 47.205449,248.47451 c -0.813985,0.14789 -1.432201,0.48903 -1.614414,1.2602 -1.076277,-0.84014 -0.01208,-0.81642 0.538137,-1.2602 -0.975224,-0.0197 -1.076274,0.84014 -2.14088,0.001 1.064606,-0.84138 1.353533,-7e-4 2.14088,-0.001 -0.636491,-0.46962 -1.614414,-0.41999 -0.538133,-1.2602 0.179105,0.70307 0.721269,1.11995 1.614414,1.2602"
+         id="path4559"
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="ccccccc" />
+    </g>
+  </g>
+</svg>

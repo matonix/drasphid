@@ -1,10 +1,13 @@
 module View exposing (..)
 
-import Html exposing (Html, div, h1, table, tbody, td, text, thead, tr)
-import Html.Attributes exposing (class, href)
+import Html exposing (Html, div, h4, img, p, text)
+import Html.Attributes exposing (class, href, src)
 import List exposing (head)
 import Material.Color as Color
 import Material.Layout as Layout
+import Material.Options as Options
+import Material.Table as Table
+import Material.Typography as Typo
 import Models exposing (..)
 import Msgs exposing (Msg(..))
 import RemoteData exposing (WebData)
@@ -53,7 +56,7 @@ header : Model -> List (Html Msg)
 header model =
     [ Layout.row [ Color.background (Color.color model.layout.primary Color.S600) ]
         [ Layout.title []
-            [ text "Drasphid" ]
+            [ img [ src "resources/title.svg" ] [] ]
         ]
     ]
 
@@ -71,30 +74,34 @@ viewAllSongs allSongs =
 
 viewSongsByFoot : SongsByFoot -> Html Msg
 viewSongsByFoot songsByFoot =
-    div [ class "p2" ]
-        [ h1 [] [ text (toString songsByFoot.foot) ]
-        , table []
-            [ thead [] [ songHead ]
-            , tbody [] (List.map songRow songsByFoot.songs)
+    div []
+        [ Options.styled p
+            [ Options.css "align-self" "flex-end"
+            , Typo.display3
+            ]
+            [ text (toString songsByFoot.foot) ]
+        , Table.table []
+            [ Table.thead [] [ songHead ]
+            , Table.tbody [] (List.map songRow songsByFoot.songs)
             ]
         ]
 
 
 songHead : Html Msg
 songHead =
-    tr []
-        [ td [] [ text "Folder" ]
-        , td [] [ text "Name" ]
-        , td [] [ text "BPM" ]
-        , td [] [ text "Notes" ]
+    Table.tr []
+        [ Table.td [] [ text "Folder" ]
+        , Table.td [] [ text "Name" ]
+        , Table.td [] [ text "BPM" ]
+        , Table.td [] [ text "Notes" ]
         ]
 
 
 songRow : Song -> Html Msg
 songRow song =
-    tr []
-        [ td [] [ text song.folder ]
-        , td [] [ text song.name ]
-        , td [] [ text song.bpm ]
-        , td [] [ text song.notes ]
+    Table.tr []
+        [ Table.td [] [ text song.folder ]
+        , Table.td [] [ text song.name ]
+        , Table.td [] [ text song.bpm ]
+        , Table.td [] [ text song.notes ]
         ]
