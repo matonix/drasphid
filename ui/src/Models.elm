@@ -10,6 +10,7 @@ type alias Model =
     { allSongs : WebData AllSongs
     , mdl : Material.Model
     , layout : Layout.Model
+    , speed : Float
     }
 
 
@@ -18,6 +19,7 @@ initModel =
     { allSongs = RemoteData.Loading
     , mdl = Material.model
     , layout = Layout.model
+    , speed = 1
     }
 
 

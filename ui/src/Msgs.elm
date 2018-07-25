@@ -8,3 +8,4 @@ import RemoteData exposing (WebData)
 type Msg
     = OnFetchAllSongs (WebData AllSongs)
     | Mdl (Material.Msg Msg)
+    | Increment Float

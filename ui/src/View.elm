@@ -1,16 +1,23 @@
 module View exposing (..)
 
+import Char
 import Html exposing (Html, div, h4, img, p, text)
 import Html.Attributes exposing (class, href, src)
-import List exposing (head)
+import Html.Events exposing (onClick)
+import List
+import List.Extra
+import Material.Button as Button
 import Material.Color as Color
+import Material.Icon as Icon
 import Material.Layout as Layout
 import Material.Options as Options
 import Material.Table as Table
 import Material.Typography as Typo
+import Maybe
 import Models exposing (..)
 import Msgs exposing (Msg(..))
 import RemoteData exposing (WebData)
+import Result.Extra
 
 
 view : Model -> Html Msg
@@ -46,9 +53,12 @@ page model allSongs =
         , drawer = []
         , tabs =
             ( tabTitles allSongs
-            , [ Color.background (Color.color model.layout.primary Color.S400) ]
+            , [ Color.background (Color.color model.layout.primary Color.S600) ]
             )
-        , main = [ viewAllSongs allSongs ]
+        , main =
+            [ controlArea model
+            , viewAllSongs model allSongs
+            ]
         }
 
 
@@ -56,7 +66,8 @@ header : Model -> List (Html Msg)
 header model =
     [ Layout.row [ Color.background (Color.color model.layout.primary Color.S600) ]
         [ Layout.title []
-            [ img [ src "resources/title.svg" ] [] ]
+            [ img [ src "resources/title.svg" ] []
+            ]
         ]
     ]
 
@@ -66,14 +77,28 @@ tabTitles =
     .songsByfoot >> List.map (.foot >> toString >> text)
 
 
-viewAllSongs : AllSongs -> Html Msg
-viewAllSongs allSongs =
+controlArea : Model -> Html Msg
+controlArea model =
+    div
+        []
+        [ Button.render Mdl
+            [ 0 ]
+            model.mdl
+            [ Button.fab
+            , Options.onClick (Increment 2)
+            ]
+            [ Icon.i "add" ]
+        ]
+
+
+viewAllSongs : Model -> AllSongs -> Html Msg
+viewAllSongs model allSongs =
     div []
-        (List.map viewSongsByFoot allSongs.songsByfoot)
+        (List.map (viewSongsByFoot model) allSongs.songsByfoot)
 
 
-viewSongsByFoot : SongsByFoot -> Html Msg
-viewSongsByFoot songsByFoot =
+viewSongsByFoot : Model -> SongsByFoot -> Html Msg
+viewSongsByFoot model songsByFoot =
     div []
         [ Options.styled p
             [ Options.css "align-self" "flex-end"
@@ -82,7 +107,7 @@ viewSongsByFoot songsByFoot =
             [ text (toString songsByFoot.foot) ]
         , Table.table []
             [ Table.thead [] [ songHead ]
-            , Table.tbody [] (List.map songRow songsByFoot.songs)
+            , Table.tbody [] (List.map (songRow model) songsByFoot.songs)
             ]
         ]
 
@@ -97,11 +122,28 @@ songHead =
         ]
 
 
-songRow : Song -> Html Msg
-songRow song =
+songRow : Model -> Song -> Html Msg
+songRow model song =
+    let
+        bpm =
+            song.bpm
+                |> String.toList
+                |> List.Extra.groupWhile (\x y -> Char.isDigit x == Char.isDigit y)
+                |> List.map
+                    (\x ->
+                        if List.head x |> Maybe.withDefault ' ' |> Char.isDigit then
+                            String.fromList x
+                                |> String.toFloat
+                                |> Result.map ((*) model.speed >> round >> toString)
+                                |> Result.withDefault ""
+                        else
+                            String.fromList x
+                    )
+                |> String.concat
+    in
     Table.tr []
         [ Table.td [] [ text song.folder ]
         , Table.td [] [ text song.name ]
-        , Table.td [] [ text song.bpm ]
+        , Table.td [] [ text bpm ]
         , Table.td [] [ text song.notes ]
         ]
