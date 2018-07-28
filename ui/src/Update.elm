@@ -14,5 +14,5 @@ update msg model =
         Mdl msg_ ->
             Material.update Mdl msg_ model
 
-        Increment howMuch ->
-            ( { model | speed = model.speed + howMuch }, Cmd.none )
+        Slider value ->
+            ( { model | speed = value }, Cmd.none )

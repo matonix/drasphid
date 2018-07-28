@@ -1,6 +1,7 @@
 port module Main exposing (..)
 
 import Cmds exposing (fetchAllSongs)
+import Dict exposing (Dict)
 import Html exposing (program)
 import Models exposing (Model, initModel)
 import Msgs exposing (Msg)

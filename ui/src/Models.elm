@@ -19,7 +19,7 @@ initModel =
     { allSongs = RemoteData.Loading
     , mdl = Material.model
     , layout = Layout.model
-    , speed = 1
+    , speed = 500
     }
 
 
