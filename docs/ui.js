@@ -15578,6 +15578,118 @@ var _debois$elm_mdl$Material_Grid$Bottom = {ctor: 'Bottom'};
 var _debois$elm_mdl$Material_Grid$Middle = {ctor: 'Middle'};
 var _debois$elm_mdl$Material_Grid$Top = {ctor: 'Top'};
 
+var _debois$elm_mdl$Material_List$action2 = _debois$elm_mdl$Material_Options$cs('mdl-list__item-secondary-action');
+var _debois$elm_mdl$Material_List$info2 = function (options) {
+	return _debois$elm_mdl$Material_Options$span(
+		{
+			ctor: '::',
+			_0: _debois$elm_mdl$Material_Options$cs('mdl-list__item-secondary-info'),
+			_1: options
+		});
+};
+var _debois$elm_mdl$Material_List$content2 = function (options) {
+	return _debois$elm_mdl$Material_Options$span(
+		{
+			ctor: '::',
+			_0: _debois$elm_mdl$Material_Options$cs('mdl-list__item-secondary-content'),
+			_1: options
+		});
+};
+var _debois$elm_mdl$Material_List$subtitle = function (options) {
+	return _debois$elm_mdl$Material_Options$span(
+		{
+			ctor: '::',
+			_0: _debois$elm_mdl$Material_Options$cs('mdl-list__item-sub-title'),
+			_1: options
+		});
+};
+var _debois$elm_mdl$Material_List$body = function (options) {
+	return _debois$elm_mdl$Material_Options$span(
+		{
+			ctor: '::',
+			_0: _debois$elm_mdl$Material_Options$cs('mdl-list__item-text-body'),
+			_1: options
+		});
+};
+var _debois$elm_mdl$Material_List$icon = F2(
+	function (i, options) {
+		return A2(
+			_debois$elm_mdl$Material_Icon$view,
+			i,
+			{
+				ctor: '::',
+				_0: _debois$elm_mdl$Material_Options$cs('mdl-list__item-icon'),
+				_1: options
+			});
+	});
+var _debois$elm_mdl$Material_List$avatar = _debois$elm_mdl$Material_Options$cs('mdl-list__item-avatar');
+var _debois$elm_mdl$Material_List$avatarImage = F2(
+	function (src, options) {
+		return A4(
+			_debois$elm_mdl$Material_Options$styled_,
+			_elm_lang$html$Html$img,
+			{ctor: '::', _0: _debois$elm_mdl$Material_List$avatar, _1: options},
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html_Attributes$src(src),
+				_1: {ctor: '[]'}
+			},
+			{ctor: '[]'});
+	});
+var _debois$elm_mdl$Material_List$avatarIcon = F2(
+	function (i, options) {
+		return A2(
+			_debois$elm_mdl$Material_Options$div,
+			{
+				ctor: '::',
+				_0: _debois$elm_mdl$Material_Options$center,
+				_1: {
+					ctor: '::',
+					_0: _debois$elm_mdl$Material_Options$many(options),
+					_1: {
+						ctor: '::',
+						_0: _debois$elm_mdl$Material_List$avatar,
+						_1: {ctor: '[]'}
+					}
+				}
+			},
+			{
+				ctor: '::',
+				_0: _debois$elm_mdl$Material_Icon$i(i),
+				_1: {ctor: '[]'}
+			});
+	});
+var _debois$elm_mdl$Material_List$content = function (options) {
+	return _debois$elm_mdl$Material_Options$span(
+		{
+			ctor: '::',
+			_0: _debois$elm_mdl$Material_Options$cs('mdl-list__item-primary-content'),
+			_1: options
+		});
+};
+var _debois$elm_mdl$Material_List$withSubtitle = _debois$elm_mdl$Material_Options$cs('mdl-list__item--two-line');
+var _debois$elm_mdl$Material_List$withBody = _debois$elm_mdl$Material_Options$cs('mdl-list__item--three-line');
+var _debois$elm_mdl$Material_List$li = function (options) {
+	return A2(
+		_debois$elm_mdl$Material_Options$styled,
+		_elm_lang$html$Html$li,
+		{
+			ctor: '::',
+			_0: _debois$elm_mdl$Material_Options$cs('mdl-list__item'),
+			_1: options
+		});
+};
+var _debois$elm_mdl$Material_List$ul = function (options) {
+	return A2(
+		_debois$elm_mdl$Material_Options$styled,
+		_elm_lang$html$Html$ul,
+		{
+			ctor: '::',
+			_0: _debois$elm_mdl$Material_Options$cs('mdl-list'),
+			_1: options
+		});
+};
+
 var _debois$elm_mdl$Material_Scheme$scheme = F2(
 	function (primary, accent) {
 		return A2(
@@ -19089,20 +19201,6 @@ var _user$project$Util$calcHs = F2(
 					_user$project$Util$hss)));
 	});
 
-var _user$project$View$text_ = function (str) {
-	return A2(
-		_debois$elm_mdl$Material_Options$span,
-		{
-			ctor: '::',
-			_0: A2(_debois$elm_mdl$Material_Options$css, 'word-wrap', 'break-word'),
-			_1: {ctor: '[]'}
-		},
-		{
-			ctor: '::',
-			_0: _elm_lang$html$Html$text(str),
-			_1: {ctor: '[]'}
-		});
-};
 var _user$project$View$rtext = F2(
 	function (model, str) {
 		return A2(
@@ -19111,11 +19209,7 @@ var _user$project$View$rtext = F2(
 				ctor: '::',
 				_0: _debois$elm_mdl$Material_Color$text(
 					A2(_debois$elm_mdl$Material_Color$color, model.layout.accent, _debois$elm_mdl$Material_Color$A400)),
-				_1: {
-					ctor: '::',
-					_0: A2(_debois$elm_mdl$Material_Options$css, 'word-wrap', 'break-word'),
-					_1: {ctor: '[]'}
-				}
+				_1: {ctor: '[]'}
 			},
 			{
 				ctor: '::',
@@ -19125,22 +19219,11 @@ var _user$project$View$rtext = F2(
 	});
 var _user$project$View$btext = function (str) {
 	return A2(
-		_debois$elm_mdl$Material_Options$span,
+		_elm_lang$html$Html$b,
+		{ctor: '[]'},
 		{
 			ctor: '::',
-			_0: A2(_debois$elm_mdl$Material_Options$css, 'word-wrap', 'break-word'),
-			_1: {ctor: '[]'}
-		},
-		{
-			ctor: '::',
-			_0: A2(
-				_elm_lang$html$Html$b,
-				{ctor: '[]'},
-				{
-					ctor: '::',
-					_0: _elm_lang$html$Html$text(str),
-					_1: {ctor: '[]'}
-				}),
+			_0: _elm_lang$html$Html$text(str),
 			_1: {ctor: '[]'}
 		});
 };
@@ -19151,139 +19234,147 @@ var _user$project$View$songRow = F2(
 			_user$project$Util$calcHs(model.speed),
 			_user$project$Bpm$toFloats(song.bpm));
 		return A2(
-			_debois$elm_mdl$Material_Table$tr,
-			{ctor: '[]'},
+			_debois$elm_mdl$Material_List$li,
 			{
 				ctor: '::',
-				_0: A2(
-					_debois$elm_mdl$Material_Table$td,
-					{ctor: '[]'},
-					{
-						ctor: '::',
-						_0: _user$project$View$text_(song.name),
-						_1: {ctor: '[]'}
-					}),
-				_1: {
-					ctor: '::',
-					_0: A2(
-						_debois$elm_mdl$Material_Table$td,
-						{ctor: '[]'},
-						A2(
-							_elm_lang$core$List$intersperse,
-							A2(
-								_elm_lang$html$Html$br,
-								{ctor: '[]'},
-								{ctor: '[]'}),
-							A2(
-								F2(
-									function (x, y) {
-										return {ctor: '::', _0: x, _1: y};
-									}),
-								_elm_lang$html$Html$text(song.bpm),
-								A2(
-									_elm_lang$core$List$map,
-									function (hs) {
-										return A2(
-											_user$project$View$rtext,
-											model,
-											A2(
-												_user$project$Bpm$mapString,
-												F2(
-													function (x, y) {
-														return x * y;
-													})(hs),
-												song.bpm));
-									},
-									hss)))),
-					_1: {
-						ctor: '::',
-						_0: A2(
-							_debois$elm_mdl$Material_Table$td,
-							{ctor: '[]'},
-							A2(
-								_elm_lang$core$List$intersperse,
-								A2(
-									_elm_lang$html$Html$br,
-									{ctor: '[]'},
-									{ctor: '[]'}),
-								A2(
-									F2(
-										function (x, y) {
-											return {ctor: '::', _0: x, _1: y};
-										}),
-									_elm_lang$html$Html$text(''),
-									A2(
-										_elm_lang$core$List$map,
-										function (hs) {
-											return A2(
-												_user$project$View$rtext,
-												model,
-												A2(
-													_elm_lang$core$Basics_ops['++'],
-													'x',
-													_elm_lang$core$Basics$toString(hs)));
-										},
-										hss)))),
-						_1: {ctor: '[]'}
-					}
-				}
-			});
-	});
-var _user$project$View$songHead = A2(
-	_debois$elm_mdl$Material_Table$tr,
-	{ctor: '[]'},
-	{
-		ctor: '::',
-		_0: A2(
-			_debois$elm_mdl$Material_Table$td,
-			{
-				ctor: '::',
-				_0: A2(_debois$elm_mdl$Material_Options$css, 'width', '40%'),
+				_0: _debois$elm_mdl$Material_List$withBody,
 				_1: {ctor: '[]'}
 			},
 			{
 				ctor: '::',
-				_0: _user$project$View$btext('Name'),
-				_1: {ctor: '[]'}
-			}),
-		_1: {
-			ctor: '::',
-			_0: A2(
-				_debois$elm_mdl$Material_Table$td,
-				{
-					ctor: '::',
-					_0: A2(_debois$elm_mdl$Material_Options$css, 'width', '40%'),
-					_1: {ctor: '[]'}
-				},
-				{
-					ctor: '::',
-					_0: _user$project$View$btext('BPM/Speed'),
-					_1: {ctor: '[]'}
-				}),
-			_1: {
-				ctor: '::',
 				_0: A2(
-					_debois$elm_mdl$Material_Table$td,
+					_debois$elm_mdl$Material_List$content,
+					{ctor: '[]'},
 					{
 						ctor: '::',
-						_0: A2(_debois$elm_mdl$Material_Options$css, 'width', '20%'),
-						_1: {ctor: '[]'}
-					},
-					{
-						ctor: '::',
-						_0: _user$project$View$btext('HS'),
-						_1: {ctor: '[]'}
+						_0: A2(
+							_debois$elm_mdl$Material_Options$span,
+							{
+								ctor: '::',
+								_0: A2(_debois$elm_mdl$Material_Options$css, 'overflow', 'hidden'),
+								_1: {
+									ctor: '::',
+									_0: A2(_debois$elm_mdl$Material_Options$css, 'white-space', 'nowrap'),
+									_1: {
+										ctor: '::',
+										_0: A2(_debois$elm_mdl$Material_Options$css, 'text-overflow', 'ellipsis'),
+										_1: {ctor: '[]'}
+									}
+								}
+							},
+							{
+								ctor: '::',
+								_0: _elm_lang$html$Html$text(song.name),
+								_1: {ctor: '[]'}
+							}),
+						_1: {
+							ctor: '::',
+							_0: A2(
+								_debois$elm_mdl$Material_List$body,
+								{
+									ctor: '::',
+									_0: A2(_debois$elm_mdl$Material_Options$css, 'width', '100%'),
+									_1: {
+										ctor: '::',
+										_0: A2(_debois$elm_mdl$Material_Options$css, 'display', 'table'),
+										_1: {ctor: '[]'}
+									}
+								},
+								{
+									ctor: '::',
+									_0: A2(
+										_debois$elm_mdl$Material_Options$div,
+										{
+											ctor: '::',
+											_0: A2(_debois$elm_mdl$Material_Options$css, 'width', '42.5%'),
+											_1: {
+												ctor: '::',
+												_0: A2(_debois$elm_mdl$Material_Options$css, 'display', 'table-cell'),
+												_1: {ctor: '[]'}
+											}
+										},
+										{
+											ctor: '::',
+											_0: _elm_lang$html$Html$text(song.bpm),
+											_1: {ctor: '[]'}
+										}),
+									_1: {
+										ctor: '::',
+										_0: A2(
+											_debois$elm_mdl$Material_Options$div,
+											{
+												ctor: '::',
+												_0: A2(_debois$elm_mdl$Material_Options$css, 'width', '42.5%'),
+												_1: {
+													ctor: '::',
+													_0: A2(_debois$elm_mdl$Material_Options$css, 'display', 'table-cell'),
+													_1: {ctor: '[]'}
+												}
+											},
+											A2(
+												_elm_lang$core$List$intersperse,
+												A2(
+													_elm_lang$html$Html$br,
+													{ctor: '[]'},
+													{ctor: '[]'}),
+												A2(
+													_elm_lang$core$List$map,
+													function (hs) {
+														return _elm_lang$html$Html$text(
+															A2(
+																_user$project$Bpm$mapString,
+																F2(
+																	function (x, y) {
+																		return x * y;
+																	})(hs),
+																song.bpm));
+													},
+													hss))),
+										_1: {
+											ctor: '::',
+											_0: A2(
+												_debois$elm_mdl$Material_Options$div,
+												{
+													ctor: '::',
+													_0: A2(_debois$elm_mdl$Material_Options$css, 'width', '15%'),
+													_1: {
+														ctor: '::',
+														_0: A2(_debois$elm_mdl$Material_Options$css, 'display', 'table-cell'),
+														_1: {ctor: '[]'}
+													}
+												},
+												A2(
+													_elm_lang$core$List$intersperse,
+													A2(
+														_elm_lang$html$Html$br,
+														{ctor: '[]'},
+														{ctor: '[]'}),
+													A2(
+														_elm_lang$core$List$map,
+														function (hs) {
+															return _elm_lang$html$Html$text(
+																A2(
+																	_elm_lang$core$Basics_ops['++'],
+																	'x',
+																	_elm_lang$core$Basics$toString(hs)));
+														},
+														hss))),
+											_1: {ctor: '[]'}
+										}
+									}
+								}),
+							_1: {ctor: '[]'}
+						}
 					}),
 				_1: {ctor: '[]'}
-			}
-		}
+			});
 	});
 var _user$project$View$cardStyle = {
 	ctor: '::',
-	_0: A2(_debois$elm_mdl$Material_Options$css, 'margin', '12px'),
+	_0: A2(_debois$elm_mdl$Material_Options$css, 'max-width', '800px'),
 	_1: {
 		ctor: '::',
-		_0: A2(_debois$elm_mdl$Material_Options$css, 'padding', '12px'),
+		_0: A2(_debois$elm_mdl$Material_Options$css, 'margin', '16px'),
 		_1: {
 			ctor: '::',
 			_0: _debois$elm_mdl$Material_Elevation$e2,
@@ -19305,7 +19396,11 @@ var _user$project$View$controlArea = function (model) {
 					_1: {
 						ctor: '::',
 						_0: A2(_debois$elm_mdl$Material_Options$css, 'width', '100%'),
-						_1: {ctor: '[]'}
+						_1: {
+							ctor: '::',
+							_0: A2(_debois$elm_mdl$Material_Options$css, 'padding', '16px'),
+							_1: {ctor: '[]'}
+						}
 					}
 				},
 				{
@@ -19328,7 +19423,7 @@ var _user$project$View$controlArea = function (model) {
 								_elm_lang$html$Html$p,
 								{
 									ctor: '::',
-									_0: _debois$elm_mdl$Material_Typography$caption,
+									_0: _debois$elm_mdl$Material_Typography$body1,
 									_1: {ctor: '[]'}
 								},
 								{
@@ -19349,7 +19444,11 @@ var _user$project$View$controlArea = function (model) {
 							{
 								ctor: '::',
 								_0: A2(_debois$elm_mdl$Material_Options$css, 'display', 'table-cell'),
-								_1: {ctor: '[]'}
+								_1: {
+									ctor: '::',
+									_0: A2(_debois$elm_mdl$Material_Options$css, 'width', '90%'),
+									_1: {ctor: '[]'}
+								}
 							},
 							{
 								ctor: '::',
@@ -19395,8 +19494,12 @@ var _user$project$View$viewSongsByFoot = F2(
 					_elm_lang$html$Html$p,
 					{
 						ctor: '::',
-						_0: _debois$elm_mdl$Material_Typography$display3,
-						_1: {ctor: '[]'}
+						_0: _debois$elm_mdl$Material_Typography$display1,
+						_1: {
+							ctor: '::',
+							_0: A2(_debois$elm_mdl$Material_Options$css, 'padding', '16px'),
+							_1: {ctor: '[]'}
+						}
 					},
 					{
 						ctor: '::',
@@ -19407,38 +19510,12 @@ var _user$project$View$viewSongsByFoot = F2(
 				_1: {
 					ctor: '::',
 					_0: A2(
-						_debois$elm_mdl$Material_Table$table,
-						{
-							ctor: '::',
-							_0: A2(_debois$elm_mdl$Material_Options$css, 'width', '100%'),
-							_1: {
-								ctor: '::',
-								_0: A2(_debois$elm_mdl$Material_Options$css, 'table-layout', 'fixed'),
-								_1: {ctor: '[]'}
-							}
-						},
-						{
-							ctor: '::',
-							_0: A2(
-								_debois$elm_mdl$Material_Table$thead,
-								{ctor: '[]'},
-								{
-									ctor: '::',
-									_0: _user$project$View$songHead,
-									_1: {ctor: '[]'}
-								}),
-							_1: {
-								ctor: '::',
-								_0: A2(
-									_debois$elm_mdl$Material_Table$tbody,
-									{ctor: '[]'},
-									A2(
-										_elm_lang$core$List$map,
-										_user$project$View$songRow(model),
-										songsByFoot.songs)),
-								_1: {ctor: '[]'}
-							}
-						}),
+						_debois$elm_mdl$Material_List$ul,
+						{ctor: '[]'},
+						A2(
+							_elm_lang$core$List$map,
+							_user$project$View$songRow(model),
+							songsByFoot.songs)),
 					_1: {ctor: '[]'}
 				}
 			});
@@ -19446,7 +19523,7 @@ var _user$project$View$viewSongsByFoot = F2(
 var _user$project$View$viewAllSongs = F2(
 	function (model, allSongs) {
 		return A2(
-			_elm_lang$html$Html$div,
+			_debois$elm_mdl$Material_Options$div,
 			{ctor: '[]'},
 			{
 				ctor: '::',
@@ -19500,13 +19577,13 @@ var _user$project$View$header = function (model) {
 					{
 						ctor: '::',
 						_0: A2(
-							_elm_lang$html$Html$img,
+							_debois$elm_mdl$Material_Options$img,
+							{ctor: '[]'},
 							{
 								ctor: '::',
 								_0: _elm_lang$html$Html_Attributes$src('resources/title.svg'),
 								_1: {ctor: '[]'}
-							},
-							{ctor: '[]'}),
+							}),
 						_1: {ctor: '[]'}
 					}),
 				_1: {ctor: '[]'}
@@ -19565,7 +19642,7 @@ var _user$project$View$response = function (model) {
 };
 var _user$project$View$view = function (model) {
 	return A2(
-		_elm_lang$html$Html$div,
+		_debois$elm_mdl$Material_Options$div,
 		{ctor: '[]'},
 		{
 			ctor: '::',

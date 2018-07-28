@@ -1,9 +1,8 @@
 module View exposing (..)
 
 import Bpm
-import Html exposing (..)
-import Html.Attributes exposing (class, href, src)
-import Html.Events exposing (onClick)
+import Html exposing (Html, b, br, p, text)
+import Html.Attributes exposing (src)
 import List
 import List.Extra
 import Material.Button as Button
@@ -12,7 +11,8 @@ import Material.Elevation as Elevation
 import Material.Grid exposing (..)
 import Material.Icon as Icon
 import Material.Layout as Layout
-import Material.Options as Options
+import Material.List as Lists
+import Material.Options exposing (..)
 import Material.Scheme as Scheme
 import Material.Slider as Slider
 import Material.Table as Table
@@ -68,7 +68,7 @@ header : Model -> List (Html Msg)
 header model =
     [ Layout.row []
         [ Layout.title []
-            [ img [ src "resources/title.svg" ] []
+            [ img [] [ src "resources/title.svg" ]
             ]
         ]
     ]
@@ -81,35 +81,39 @@ tabTitles =
 
 mainArea : Model -> AllSongs -> Html Msg
 mainArea model allSongs =
-    Options.div [ Options.center ]
+    div [ center ]
         [ viewAllSongs model allSongs ]
 
 
-cardStyle : List (Options.Style Msg)
+cardStyle : List (Style Msg)
 cardStyle =
-    [ Options.css "margin" "12px"
-    , Options.css "padding" "12px"
+    [ css "max-width" "800px"
+    , css "margin" "16px"
     , Elevation.e2
     ]
 
 
 controlArea : Model -> Html Msg
 controlArea model =
-    Options.div
+    div
         cardStyle
-        [ Options.div
-            [ Options.css "display" "table"
-            , Options.css "width" "100%"
+        [ div
+            [ css "display" "table"
+            , css "width" "100%"
+            , css "padding" "16px"
             ]
-            [ Options.div
-                [ Options.css "display" "table-cell"
-                , Options.css "width" "10%"
+            [ div
+                [ css "display" "table-cell"
+                , css "width" "10%"
                 ]
-                [ Options.styled p
-                    [ Typo.caption ]
+                [ styled p
+                    [ Typo.body1 ]
                     [ text ("Spped " ++ toString model.speed) ]
                 ]
-            , Options.div [ Options.css "display" "table-cell" ]
+            , div
+                [ css "display" "table-cell"
+                , css "width" "90%"
+                ]
                 [ Slider.view
                     [ Slider.onChange Slider
                     , Slider.value model.speed
@@ -132,27 +136,16 @@ viewAllSongs model allSongs =
 
 viewSongsByFoot : Model -> SongsByFoot -> Html Msg
 viewSongsByFoot model songsByFoot =
-    Options.div
+    div
         cardStyle
-        [ Options.styled p
-            [ Typo.display3 ]
+        [ styled p
+            [ Typo.display1
+            , css "padding" "16px"
+            ]
             [ text (toString songsByFoot.foot) ]
-        , Table.table
-            [ Options.css "width" "100%"
-            , Options.css "table-layout" "fixed"
-            ]
-            [ Table.thead [] [ songHead ]
-            , Table.tbody [] (List.map (songRow model) songsByFoot.songs)
-            ]
-        ]
-
-
-songHead : Html Msg
-songHead =
-    Table.tr []
-        [ Table.td [ Options.css "width" "40%" ] [ btext "Name" ]
-        , Table.td [ Options.css "width" "40%" ] [ btext "BPM/Speed" ]
-        , Table.td [ Options.css "width" "20%" ] [ btext "HS" ]
+        , Lists.ul
+            []
+            (List.map (songRow model) songsByFoot.songs)
         ]
 
 
@@ -162,43 +155,39 @@ songRow model song =
         hss =
             song.bpm |> Bpm.toFloats |> List.map (Util.calcHs model.speed)
     in
-    Table.tr []
-        [ Table.td [] [ text_ song.name ]
-        , Table.td []
-            (hss
-                |> List.map (\hs -> rtext model (song.bpm |> Bpm.mapString ((*) hs)))
-                |> (::) (text song.bpm)
-                |> List.intersperse (br [] [])
-            )
-        , Table.td []
-            (hss
-                |> List.map (\hs -> rtext model ("x" ++ toString hs))
-                |> (::) (text "")
-                |> List.intersperse (br [] [])
-            )
+    Lists.li [ Lists.withBody ]
+        [ Lists.content []
+            [ span
+                [ css "overflow" "hidden"
+                , css "white-space" "nowrap"
+                , css "text-overflow" "ellipsis"
+                ]
+                [ text song.name ]
+            , Lists.body [ css "width" "100%", css "display" "table" ]
+                [ div [ css "width" "42.5%", css "display" "table-cell" ]
+                    [ text song.bpm ]
+                , div [ css "width" "42.5%", css "display" "table-cell" ]
+                    (hss
+                        |> List.map (\hs -> text (song.bpm |> Bpm.mapString ((*) hs)))
+                        |> List.intersperse (br [] [])
+                    )
+                , div [ css "width" "15%", css "display" "table-cell" ]
+                    (hss
+                        |> List.map (\hs -> text ("x" ++ toString hs))
+                        |> List.intersperse (br [] [])
+                    )
+                ]
+            ]
         ]
 
 
 btext : String -> Html Msg
 btext str =
-    Options.span
-        [ Options.css "word-wrap" "break-word"
-        ]
-        [ b [] [ text str ] ]
+    b [] [ text str ]
 
 
 rtext : Model -> String -> Html Msg
 rtext model str =
-    Options.span
-        [ Color.text (Color.color model.layout.accent Color.A400)
-        , Options.css "word-wrap" "break-word"
-        ]
-        [ text str ]
-
-
-text_ : String -> Html Msg
-text_ str =
-    Options.span
-        [ Options.css "word-wrap" "break-word"
-        ]
+    span
+        [ Color.text (Color.color model.layout.accent Color.A400) ]
         [ text str ]
