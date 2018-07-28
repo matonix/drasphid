@@ -9,6 +9,7 @@ import List.Extra
 import Material.Button as Button
 import Material.Color as Color
 import Material.Elevation as Elevation
+import Material.Grid exposing (..)
 import Material.Icon as Icon
 import Material.Layout as Layout
 import Material.Options as Options
@@ -86,9 +87,8 @@ mainArea model allSongs =
 
 cardStyle : List (Options.Style Msg)
 cardStyle =
-    [ Options.css "width" "750px"
-    , Options.css "margin" "24px"
-    , Options.css "padding" "24px"
+    [ Options.css "margin" "12px"
+    , Options.css "padding" "12px"
     , Elevation.e2
     ]
 
@@ -150,16 +150,10 @@ viewSongsByFoot model songsByFoot =
 songHead : Html Msg
 songHead =
     Table.tr []
-        [ Table.td [ Options.css "width" "10%" ] [ btext "Folder" ]
-        , Table.td [ Options.css "width" "40%" ] [ btext "Name" ]
-        , Table.td [ Options.css "width" "25%" ] [ btext "BPM/Speed" ]
-        , Table.td [ Options.css "width" "10%" ] [ btext "HS" ]
-        , Table.td [ Options.css "width" "15%" ] [ btext "Notes" ]
+        [ Table.td [ Options.css "width" "40%" ] [ btext "Name" ]
+        , Table.td [ Options.css "width" "40%" ] [ btext "BPM/Speed" ]
+        , Table.td [ Options.css "width" "20%" ] [ btext "HS" ]
         ]
-
-
-btext str =
-    b [] [ text str ]
 
 
 songRow : Model -> Song -> Html Msg
@@ -169,8 +163,7 @@ songRow model song =
             song.bpm |> Bpm.toFloats |> List.map (Util.calcHs model.speed)
     in
     Table.tr []
-        [ Table.td [] [ text song.folder ]
-        , Table.td [] [ text song.name ]
+        [ Table.td [] [ text_ song.name ]
         , Table.td []
             (hss
                 |> List.map (\hs -> rtext model (song.bpm |> Bpm.mapString ((*) hs)))
@@ -183,13 +176,29 @@ songRow model song =
                 |> (::) (text "")
                 |> List.intersperse (br [] [])
             )
-        , Table.td [] [ text song.notes ]
         ]
+
+
+btext : String -> Html Msg
+btext str =
+    Options.span
+        [ Options.css "word-wrap" "break-word"
+        ]
+        [ b [] [ text str ] ]
 
 
 rtext : Model -> String -> Html Msg
 rtext model str =
     Options.span
         [ Color.text (Color.color model.layout.accent Color.A400)
+        , Options.css "word-wrap" "break-word"
+        ]
+        [ text str ]
+
+
+text_ : String -> Html Msg
+text_ str =
+    Options.span
+        [ Options.css "word-wrap" "break-word"
         ]
         [ text str ]

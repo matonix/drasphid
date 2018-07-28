@@ -15422,6 +15422,162 @@ var _debois$elm_mdl$Material_Elevation$elevations = _elm_lang$core$Array$fromLis
 		}
 	});
 
+var _debois$elm_mdl$Material_Grid$clip = F3(
+	function (lower, upper, k) {
+		return A2(
+			_elm_lang$core$Basics$max,
+			lower,
+			A2(_elm_lang$core$Basics$min, k, upper));
+	});
+var _debois$elm_mdl$Material_Grid$stretch = _debois$elm_mdl$Material_Options$cs('mdl-cell--stretch');
+var _debois$elm_mdl$Material_Grid$align = function (a) {
+	var _p0 = a;
+	switch (_p0.ctor) {
+		case 'Top':
+			return _debois$elm_mdl$Material_Options$cs('mdl-cell--top');
+		case 'Middle':
+			return _debois$elm_mdl$Material_Options$cs('mdl-cell--middle');
+		default:
+			return _debois$elm_mdl$Material_Options$cs('mdl-cell--bottom');
+	}
+};
+var _debois$elm_mdl$Material_Grid$suffix = function (device) {
+	var _p1 = device;
+	switch (_p1.ctor) {
+		case 'All':
+			return '';
+		case 'Desktop':
+			return '-desktop';
+		case 'Tablet':
+			return '-tablet';
+		default:
+			return '-phone';
+	}
+};
+var _debois$elm_mdl$Material_Grid$size = F2(
+	function (device, k) {
+		var c = function () {
+			var _p2 = device;
+			switch (_p2.ctor) {
+				case 'All':
+					return A3(_debois$elm_mdl$Material_Grid$clip, 1, 12, k);
+				case 'Desktop':
+					return A3(_debois$elm_mdl$Material_Grid$clip, 1, 12, k);
+				case 'Tablet':
+					return A3(_debois$elm_mdl$Material_Grid$clip, 1, 8, k);
+				default:
+					return A3(_debois$elm_mdl$Material_Grid$clip, 1, 4, k);
+			}
+		}();
+		return _debois$elm_mdl$Material_Options$cs(
+			A2(
+				_elm_lang$core$Basics_ops['++'],
+				'mdl-cell--',
+				A2(
+					_elm_lang$core$Basics_ops['++'],
+					_elm_lang$core$Basics$toString(c),
+					A2(
+						_elm_lang$core$Basics_ops['++'],
+						'-col',
+						_debois$elm_mdl$Material_Grid$suffix(device)))));
+	});
+var _debois$elm_mdl$Material_Grid$offset = F2(
+	function (device, k) {
+		var c = function () {
+			var _p3 = device;
+			switch (_p3.ctor) {
+				case 'All':
+					return A3(_debois$elm_mdl$Material_Grid$clip, 0, 11, k);
+				case 'Desktop':
+					return A3(_debois$elm_mdl$Material_Grid$clip, 0, 11, k);
+				case 'Tablet':
+					return A3(_debois$elm_mdl$Material_Grid$clip, 0, 7, k);
+				default:
+					return A3(_debois$elm_mdl$Material_Grid$clip, 0, 3, k);
+			}
+		}();
+		return _debois$elm_mdl$Material_Options$cs(
+			A2(
+				_elm_lang$core$Basics_ops['++'],
+				'mdl-cell--',
+				A2(
+					_elm_lang$core$Basics_ops['++'],
+					_elm_lang$core$Basics$toString(c),
+					A2(
+						_elm_lang$core$Basics_ops['++'],
+						'-offset',
+						_debois$elm_mdl$Material_Grid$suffix(device)))));
+	});
+var _debois$elm_mdl$Material_Grid$hide = function (device) {
+	return _debois$elm_mdl$Material_Options$cs(
+		function () {
+			var _p4 = device;
+			if (_p4.ctor === 'All') {
+				return '';
+			} else {
+				return A2(
+					_elm_lang$core$Basics_ops['++'],
+					'mdl-cell--hide-',
+					_debois$elm_mdl$Material_Grid$suffix(device));
+			}
+		}());
+};
+var _debois$elm_mdl$Material_Grid$order = F2(
+	function (device, n) {
+		return _debois$elm_mdl$Material_Options$cs(
+			A2(
+				_elm_lang$core$Basics_ops['++'],
+				'mdl-cell--order-',
+				A2(
+					_elm_lang$core$Basics_ops['++'],
+					_elm_lang$core$Basics$toString(
+						A3(_debois$elm_mdl$Material_Grid$clip, 1, 12, n)),
+					_debois$elm_mdl$Material_Grid$suffix(device))));
+	});
+var _debois$elm_mdl$Material_Grid$grid = F2(
+	function (styling, cells) {
+		return A2(
+			_debois$elm_mdl$Material_Options$div,
+			{
+				ctor: '::',
+				_0: _debois$elm_mdl$Material_Options$cs('mdl-grid'),
+				_1: styling
+			},
+			A2(
+				_elm_lang$core$List$map,
+				function (_p5) {
+					var _p6 = _p5;
+					return _p6._0;
+				},
+				cells));
+	});
+var _debois$elm_mdl$Material_Grid$maxWidth = function (w) {
+	return A2(_debois$elm_mdl$Material_Options$css, 'max-width', w);
+};
+var _debois$elm_mdl$Material_Grid$noSpacing = _debois$elm_mdl$Material_Options$cs('mdl-grid--no-spacing');
+var _debois$elm_mdl$Material_Grid$Phone = {ctor: 'Phone'};
+var _debois$elm_mdl$Material_Grid$Tablet = {ctor: 'Tablet'};
+var _debois$elm_mdl$Material_Grid$Desktop = {ctor: 'Desktop'};
+var _debois$elm_mdl$Material_Grid$All = {ctor: 'All'};
+var _debois$elm_mdl$Material_Grid$Cell = function (a) {
+	return {ctor: 'Cell', _0: a};
+};
+var _debois$elm_mdl$Material_Grid$cell = F2(
+	function (styling, elms) {
+		return _debois$elm_mdl$Material_Grid$Cell(
+			A2(
+				_debois$elm_mdl$Material_Options$div,
+				{
+					ctor: '::',
+					_0: _debois$elm_mdl$Material_Options$cs('mdl-cell'),
+					_1: styling
+				},
+				elms));
+	});
+var _debois$elm_mdl$Material_Grid$Bottom = {ctor: 'Bottom'};
+var _debois$elm_mdl$Material_Grid$Middle = {ctor: 'Middle'};
+var _debois$elm_mdl$Material_Grid$Top = {ctor: 'Top'};
+
 var _debois$elm_mdl$Material_Scheme$scheme = F2(
 	function (primary, accent) {
 		return A2(
@@ -18933,6 +19089,20 @@ var _user$project$Util$calcHs = F2(
 					_user$project$Util$hss)));
 	});
 
+var _user$project$View$text_ = function (str) {
+	return A2(
+		_debois$elm_mdl$Material_Options$span,
+		{
+			ctor: '::',
+			_0: A2(_debois$elm_mdl$Material_Options$css, 'word-wrap', 'break-word'),
+			_1: {ctor: '[]'}
+		},
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html$text(str),
+			_1: {ctor: '[]'}
+		});
+};
 var _user$project$View$rtext = F2(
 	function (model, str) {
 		return A2(
@@ -18941,7 +19111,11 @@ var _user$project$View$rtext = F2(
 				ctor: '::',
 				_0: _debois$elm_mdl$Material_Color$text(
 					A2(_debois$elm_mdl$Material_Color$color, model.layout.accent, _debois$elm_mdl$Material_Color$A400)),
-				_1: {ctor: '[]'}
+				_1: {
+					ctor: '::',
+					_0: A2(_debois$elm_mdl$Material_Options$css, 'word-wrap', 'break-word'),
+					_1: {ctor: '[]'}
+				}
 			},
 			{
 				ctor: '::',
@@ -18949,6 +19123,27 @@ var _user$project$View$rtext = F2(
 				_1: {ctor: '[]'}
 			});
 	});
+var _user$project$View$btext = function (str) {
+	return A2(
+		_debois$elm_mdl$Material_Options$span,
+		{
+			ctor: '::',
+			_0: A2(_debois$elm_mdl$Material_Options$css, 'word-wrap', 'break-word'),
+			_1: {ctor: '[]'}
+		},
+		{
+			ctor: '::',
+			_0: A2(
+				_elm_lang$html$Html$b,
+				{ctor: '[]'},
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html$text(str),
+					_1: {ctor: '[]'}
+				}),
+			_1: {ctor: '[]'}
+		});
+};
 var _user$project$View$songRow = F2(
 	function (model, song) {
 		var hss = A2(
@@ -18965,7 +19160,7 @@ var _user$project$View$songRow = F2(
 					{ctor: '[]'},
 					{
 						ctor: '::',
-						_0: _elm_lang$html$Html$text(song.folder),
+						_0: _user$project$View$text_(song.name),
 						_1: {ctor: '[]'}
 					}),
 				_1: {
@@ -18973,11 +19168,33 @@ var _user$project$View$songRow = F2(
 					_0: A2(
 						_debois$elm_mdl$Material_Table$td,
 						{ctor: '[]'},
-						{
-							ctor: '::',
-							_0: _elm_lang$html$Html$text(song.name),
-							_1: {ctor: '[]'}
-						}),
+						A2(
+							_elm_lang$core$List$intersperse,
+							A2(
+								_elm_lang$html$Html$br,
+								{ctor: '[]'},
+								{ctor: '[]'}),
+							A2(
+								F2(
+									function (x, y) {
+										return {ctor: '::', _0: x, _1: y};
+									}),
+								_elm_lang$html$Html$text(song.bpm),
+								A2(
+									_elm_lang$core$List$map,
+									function (hs) {
+										return A2(
+											_user$project$View$rtext,
+											model,
+											A2(
+												_user$project$Bpm$mapString,
+												F2(
+													function (x, y) {
+														return x * y;
+													})(hs),
+												song.bpm));
+									},
+									hss)))),
 					_1: {
 						ctor: '::',
 						_0: A2(
@@ -18994,7 +19211,7 @@ var _user$project$View$songRow = F2(
 										function (x, y) {
 											return {ctor: '::', _0: x, _1: y};
 										}),
-									_elm_lang$html$Html$text(song.bpm),
+									_elm_lang$html$Html$text(''),
 									A2(
 										_elm_lang$core$List$map,
 										function (hs) {
@@ -19002,70 +19219,16 @@ var _user$project$View$songRow = F2(
 												_user$project$View$rtext,
 												model,
 												A2(
-													_user$project$Bpm$mapString,
-													F2(
-														function (x, y) {
-															return x * y;
-														})(hs),
-													song.bpm));
+													_elm_lang$core$Basics_ops['++'],
+													'x',
+													_elm_lang$core$Basics$toString(hs)));
 										},
 										hss)))),
-						_1: {
-							ctor: '::',
-							_0: A2(
-								_debois$elm_mdl$Material_Table$td,
-								{ctor: '[]'},
-								A2(
-									_elm_lang$core$List$intersperse,
-									A2(
-										_elm_lang$html$Html$br,
-										{ctor: '[]'},
-										{ctor: '[]'}),
-									A2(
-										F2(
-											function (x, y) {
-												return {ctor: '::', _0: x, _1: y};
-											}),
-										_elm_lang$html$Html$text(''),
-										A2(
-											_elm_lang$core$List$map,
-											function (hs) {
-												return A2(
-													_user$project$View$rtext,
-													model,
-													A2(
-														_elm_lang$core$Basics_ops['++'],
-														'x',
-														_elm_lang$core$Basics$toString(hs)));
-											},
-											hss)))),
-							_1: {
-								ctor: '::',
-								_0: A2(
-									_debois$elm_mdl$Material_Table$td,
-									{ctor: '[]'},
-									{
-										ctor: '::',
-										_0: _elm_lang$html$Html$text(song.notes),
-										_1: {ctor: '[]'}
-									}),
-								_1: {ctor: '[]'}
-							}
-						}
+						_1: {ctor: '[]'}
 					}
 				}
 			});
 	});
-var _user$project$View$btext = function (str) {
-	return A2(
-		_elm_lang$html$Html$b,
-		{ctor: '[]'},
-		{
-			ctor: '::',
-			_0: _elm_lang$html$Html$text(str),
-			_1: {ctor: '[]'}
-		});
-};
 var _user$project$View$songHead = A2(
 	_debois$elm_mdl$Material_Table$tr,
 	{ctor: '[]'},
@@ -19075,12 +19238,12 @@ var _user$project$View$songHead = A2(
 			_debois$elm_mdl$Material_Table$td,
 			{
 				ctor: '::',
-				_0: A2(_debois$elm_mdl$Material_Options$css, 'width', '10%'),
+				_0: A2(_debois$elm_mdl$Material_Options$css, 'width', '40%'),
 				_1: {ctor: '[]'}
 			},
 			{
 				ctor: '::',
-				_0: _user$project$View$btext('Folder'),
+				_0: _user$project$View$btext('Name'),
 				_1: {ctor: '[]'}
 			}),
 		_1: {
@@ -19094,7 +19257,7 @@ var _user$project$View$songHead = A2(
 				},
 				{
 					ctor: '::',
-					_0: _user$project$View$btext('Name'),
+					_0: _user$project$View$btext('BPM/Speed'),
 					_1: {ctor: '[]'}
 				}),
 			_1: {
@@ -19103,62 +19266,28 @@ var _user$project$View$songHead = A2(
 					_debois$elm_mdl$Material_Table$td,
 					{
 						ctor: '::',
-						_0: A2(_debois$elm_mdl$Material_Options$css, 'width', '25%'),
+						_0: A2(_debois$elm_mdl$Material_Options$css, 'width', '20%'),
 						_1: {ctor: '[]'}
 					},
 					{
 						ctor: '::',
-						_0: _user$project$View$btext('BPM/Speed'),
+						_0: _user$project$View$btext('HS'),
 						_1: {ctor: '[]'}
 					}),
-				_1: {
-					ctor: '::',
-					_0: A2(
-						_debois$elm_mdl$Material_Table$td,
-						{
-							ctor: '::',
-							_0: A2(_debois$elm_mdl$Material_Options$css, 'width', '10%'),
-							_1: {ctor: '[]'}
-						},
-						{
-							ctor: '::',
-							_0: _user$project$View$btext('HS'),
-							_1: {ctor: '[]'}
-						}),
-					_1: {
-						ctor: '::',
-						_0: A2(
-							_debois$elm_mdl$Material_Table$td,
-							{
-								ctor: '::',
-								_0: A2(_debois$elm_mdl$Material_Options$css, 'width', '15%'),
-								_1: {ctor: '[]'}
-							},
-							{
-								ctor: '::',
-								_0: _user$project$View$btext('Notes'),
-								_1: {ctor: '[]'}
-							}),
-						_1: {ctor: '[]'}
-					}
-				}
+				_1: {ctor: '[]'}
 			}
 		}
 	});
 var _user$project$View$cardStyle = {
 	ctor: '::',
-	_0: A2(_debois$elm_mdl$Material_Options$css, 'width', '750px'),
+	_0: A2(_debois$elm_mdl$Material_Options$css, 'margin', '12px'),
 	_1: {
 		ctor: '::',
-		_0: A2(_debois$elm_mdl$Material_Options$css, 'margin', '24px'),
+		_0: A2(_debois$elm_mdl$Material_Options$css, 'padding', '12px'),
 		_1: {
 			ctor: '::',
-			_0: A2(_debois$elm_mdl$Material_Options$css, 'padding', '24px'),
-			_1: {
-				ctor: '::',
-				_0: _debois$elm_mdl$Material_Elevation$e2,
-				_1: {ctor: '[]'}
-			}
+			_0: _debois$elm_mdl$Material_Elevation$e2,
+			_1: {ctor: '[]'}
 		}
 	}
 };
