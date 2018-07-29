@@ -11,6 +11,7 @@ type alias Model =
     , mdl : Material.Model
     , layout : Layout.Model
     , speed : Float
+    , selectedTab : Int
     }
 
 
@@ -20,6 +21,7 @@ initModel =
     , mdl = Material.model
     , layout = Layout.model
     , speed = 500
+    , selectedTab = 0
     }
 
 

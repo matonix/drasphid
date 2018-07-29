@@ -16,3 +16,6 @@ update msg model =
 
         Slider value ->
             ( { model | speed = value }, Cmd.none )
+
+        SelectTab k ->
+            ( { model | selectedTab = k }, Cmd.none )

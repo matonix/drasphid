@@ -9,3 +9,4 @@ type Msg
     = OnFetchAllSongs (WebData AllSongs)
     | Mdl (Material.Msg Msg)
     | Slider Float
+    | SelectTab Int

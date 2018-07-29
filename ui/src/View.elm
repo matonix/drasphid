@@ -53,6 +53,8 @@ page model allSongs =
         Layout.render Mdl
             model.mdl
             [ Layout.fixedHeader
+            , Layout.selectedTab model.selectedTab
+            , Layout.onSelectTab SelectTab
             ]
             { header = header model
             , drawer = []
@@ -82,7 +84,11 @@ tabTitles =
 mainArea : Model -> AllSongs -> Html Msg
 mainArea model allSongs =
     div [ center ]
-        [ viewAllSongs model allSongs ]
+        [ div []
+            [ controlArea model
+            , viewSelectedSongs model allSongs
+            ]
+        ]
 
 
 cardStyle : List (Style Msg)
@@ -126,12 +132,13 @@ controlArea model =
         ]
 
 
-viewAllSongs : Model -> AllSongs -> Html Msg
-viewAllSongs model allSongs =
-    div []
-        (controlArea model
-            :: List.map (viewSongsByFoot model) allSongs.songsByfoot
-        )
+viewSelectedSongs : Model -> AllSongs -> Html Msg
+viewSelectedSongs model =
+    .songsByfoot
+        >> List.Extra.getAt model.selectedTab
+        >> Maybe.map (viewSongsByFoot model >> List.singleton)
+        >> Maybe.withDefault []
+        >> div []
 
 
 viewSongsByFoot : Model -> SongsByFoot -> Html Msg
@@ -142,7 +149,13 @@ viewSongsByFoot model songsByFoot =
             [ Typo.display1
             , css "padding" "16px"
             ]
-            [ text (toString songsByFoot.foot) ]
+            [ text
+                (if songsByFoot.foot == 8 then
+                    "8以下"
+                 else
+                    toString songsByFoot.foot
+                )
+            ]
         , Lists.ul
             []
             (List.map (songRow model) songsByFoot.songs)

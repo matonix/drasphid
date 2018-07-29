@@ -19001,10 +19001,10 @@ var _user$project$Layout$Model = F2(
 		return {primary: a, accent: b};
 	});
 
-var _user$project$Models$initModel = {allSongs: _krisajenkins$remotedata$RemoteData$Loading, mdl: _debois$elm_mdl$Material$model, layout: _user$project$Layout$model, speed: 500};
-var _user$project$Models$Model = F4(
-	function (a, b, c, d) {
-		return {allSongs: a, mdl: b, layout: c, speed: d};
+var _user$project$Models$initModel = {allSongs: _krisajenkins$remotedata$RemoteData$Loading, mdl: _debois$elm_mdl$Material$model, layout: _user$project$Layout$model, speed: 500, selectedTab: 0};
+var _user$project$Models$Model = F5(
+	function (a, b, c, d, e) {
+		return {allSongs: a, mdl: b, layout: c, speed: d, selectedTab: e};
 	});
 var _user$project$Models$AllSongs = F2(
 	function (a, b) {
@@ -19019,6 +19019,9 @@ var _user$project$Models$Song = F4(
 		return {folder: a, name: b, bpm: c, notes: d};
 	});
 
+var _user$project$Msgs$SelectTab = function (a) {
+	return {ctor: 'SelectTab', _0: a};
+};
 var _user$project$Msgs$Slider = function (a) {
 	return {ctor: 'Slider', _0: a};
 };
@@ -19155,12 +19158,20 @@ var _user$project$Update$update = F2(
 				};
 			case 'Mdl':
 				return A3(_debois$elm_mdl$Material$update, _user$project$Msgs$Mdl, _p0._0, model);
-			default:
+			case 'Slider':
 				return {
 					ctor: '_Tuple2',
 					_0: _elm_lang$core$Native_Utils.update(
 						model,
 						{speed: _p0._0}),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
+			default:
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{selectedTab: _p0._0}),
 					_1: _elm_lang$core$Platform_Cmd$none
 				};
 		}
@@ -19509,7 +19520,7 @@ var _user$project$View$viewSongsByFoot = F2(
 					{
 						ctor: '::',
 						_0: _elm_lang$html$Html$text(
-							_elm_lang$core$Basics$toString(songsByFoot.foot)),
+							_elm_lang$core$Native_Utils.eq(songsByFoot.foot, 8) ? '8以下' : _elm_lang$core$Basics$toString(songsByFoot.foot)),
 						_1: {ctor: '[]'}
 					}),
 				_1: {
@@ -19525,20 +19536,28 @@ var _user$project$View$viewSongsByFoot = F2(
 				}
 			});
 	});
-var _user$project$View$viewAllSongs = F2(
-	function (model, allSongs) {
+var _user$project$View$viewSelectedSongs = function (model) {
+	return function (_p0) {
 		return A2(
 			_debois$elm_mdl$Material_Options$div,
 			{ctor: '[]'},
-			{
-				ctor: '::',
-				_0: _user$project$View$controlArea(model),
-				_1: A2(
-					_elm_lang$core$List$map,
-					_user$project$View$viewSongsByFoot(model),
-					allSongs.songsByfoot)
-			});
-	});
+			A2(
+				_elm_lang$core$Maybe$withDefault,
+				{ctor: '[]'},
+				A2(
+					_elm_lang$core$Maybe$map,
+					function (_p1) {
+						return _elm_lang$core$List$singleton(
+							A2(_user$project$View$viewSongsByFoot, model, _p1));
+					},
+					A2(
+						_elm_community$list_extra$List_Extra$getAt,
+						model.selectedTab,
+						function (_) {
+							return _.songsByfoot;
+						}(_p0)))));
+	};
+};
 var _user$project$View$mainArea = F2(
 	function (model, allSongs) {
 		return A2(
@@ -19550,23 +19569,34 @@ var _user$project$View$mainArea = F2(
 			},
 			{
 				ctor: '::',
-				_0: A2(_user$project$View$viewAllSongs, model, allSongs),
+				_0: A2(
+					_debois$elm_mdl$Material_Options$div,
+					{ctor: '[]'},
+					{
+						ctor: '::',
+						_0: _user$project$View$controlArea(model),
+						_1: {
+							ctor: '::',
+							_0: A2(_user$project$View$viewSelectedSongs, model, allSongs),
+							_1: {ctor: '[]'}
+						}
+					}),
 				_1: {ctor: '[]'}
 			});
 	});
-var _user$project$View$tabTitles = function (_p0) {
+var _user$project$View$tabTitles = function (_p2) {
 	return A2(
 		_elm_lang$core$List$map,
-		function (_p1) {
+		function (_p3) {
 			return _elm_lang$html$Html$text(
 				_elm_lang$core$Basics$toString(
 					function (_) {
 						return _.foot;
-					}(_p1)));
+					}(_p3)));
 		},
 		function (_) {
 			return _.songsByfoot;
-		}(_p0));
+		}(_p2));
 };
 var _user$project$View$header = function (model) {
 	return {
@@ -19609,7 +19639,15 @@ var _user$project$View$page = F2(
 				{
 					ctor: '::',
 					_0: _debois$elm_mdl$Material_Layout$fixedHeader,
-					_1: {ctor: '[]'}
+					_1: {
+						ctor: '::',
+						_0: _debois$elm_mdl$Material_Layout$selectedTab(model.selectedTab),
+						_1: {
+							ctor: '::',
+							_0: _debois$elm_mdl$Material_Layout$onSelectTab(_user$project$Msgs$SelectTab),
+							_1: {ctor: '[]'}
+						}
+					}
 				},
 				{
 					header: _user$project$View$header(model),
@@ -19632,17 +19670,17 @@ var _user$project$View$page = F2(
 				}));
 	});
 var _user$project$View$response = function (model) {
-	var _p2 = model.allSongs;
-	switch (_p2.ctor) {
+	var _p4 = model.allSongs;
+	switch (_p4.ctor) {
 		case 'NotAsked':
 			return _elm_lang$html$Html$text('');
 		case 'Loading':
 			return _elm_lang$html$Html$text('Loading...');
 		case 'Success':
-			return A2(_user$project$View$page, model, _p2._0);
+			return A2(_user$project$View$page, model, _p4._0);
 		default:
 			return _elm_lang$html$Html$text(
-				_elm_lang$core$Basics$toString(_p2._0));
+				_elm_lang$core$Basics$toString(_p4._0));
 	}
 };
 var _user$project$View$view = function (model) {
