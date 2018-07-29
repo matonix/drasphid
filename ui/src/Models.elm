@@ -28,7 +28,8 @@ initModel =
 
 
 type alias AllSongs =
-    { songsByfoot : List SongsByFoot
+    { lastUpdated : String
+    , songsByfoot : List SongsByFoot
     }
 
 

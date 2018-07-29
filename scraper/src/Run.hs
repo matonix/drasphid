@@ -7,4 +7,5 @@ import Scraper.Wiki
 run :: RIO App ()
 run = do
   logInfo "Putting JSON of songs now..."
-  liftIO $ mkSongs >>= putSongsJson
+  lastUpdatedText <- liftIO getLastUpdated
+  liftIO $ mkSongs >>= putSongsJson lastUpdatedText

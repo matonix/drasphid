@@ -5,7 +5,8 @@ import RIO
 import Data.Aeson
 
 data Envelope = Envelope
-  { songsByfoot :: ![SongsByFoot]
+  { lastUpdated :: !Text
+  , songsByfoot :: ![SongsByFoot]
   } deriving (Show, Generic)
 
 instance ToJSON Envelope

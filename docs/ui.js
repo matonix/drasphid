@@ -19006,9 +19006,10 @@ var _user$project$Models$Model = F4(
 	function (a, b, c, d) {
 		return {allSongs: a, mdl: b, layout: c, speed: d};
 	});
-var _user$project$Models$AllSongs = function (a) {
-	return {songsByfoot: a};
-};
+var _user$project$Models$AllSongs = F2(
+	function (a, b) {
+		return {lastUpdated: a, songsByfoot: b};
+	});
 var _user$project$Models$SongsByFoot = F2(
 	function (a, b) {
 		return {foot: a, songs: b};
@@ -19128,7 +19129,11 @@ var _user$project$Cmds$decodeAllSongs = A3(
 	_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
 	'songsByfoot',
 	_elm_lang$core$Json_Decode$list(_user$project$Cmds$decodeSongsByFoot),
-	_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$decode(_user$project$Models$AllSongs));
+	A3(
+		_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+		'lastUpdated',
+		_elm_lang$core$Json_Decode$string,
+		_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$decode(_user$project$Models$AllSongs)));
 var _user$project$Cmds$jsonPath = 'resources/output.json';
 var _user$project$Cmds$fetchAllSongs = A2(
 	_elm_lang$core$Platform_Cmd$map,

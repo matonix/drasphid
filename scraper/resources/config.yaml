@@ -1,15 +1,25 @@
 output: ../docs/resources/output.json
 feet:
-  # - https://www21.atwiki.jp/asigami/pages/1418.html
-  # - https://www21.atwiki.jp/asigami/pages/1056.html
-  # - https://www21.atwiki.jp/asigami/pages/558.html
-  # - https://www21.atwiki.jp/asigami/pages/335.html
-  # - https://www21.atwiki.jp/asigami/pages/234.html
-  # - https://www21.atwiki.jp/asigami/pages/13.html
-  # - https://www21.atwiki.jp/asigami/pages/14.html
-  # - https://www21.atwiki.jp/asigami/pages/15.html
-  # - https://www21.atwiki.jp/asigami/pages/17.html
-  # - https://www21.atwiki.jp/asigami/pages/18.html
+  - foot: 8
+    url: https://www21.atwiki.jp/asigami/pages/1418.html
+  - foot: 9
+    url: https://www21.atwiki.jp/asigami/pages/1056.html
+  - foot: 10
+    url: https://www21.atwiki.jp/asigami/pages/558.html
+  - foot: 11
+    url: https://www21.atwiki.jp/asigami/pages/335.html
+  - foot: 12
+    url: https://www21.atwiki.jp/asigami/pages/234.html
+  - foot: 13
+    url: https://www21.atwiki.jp/asigami/pages/13.html
+  - foot: 14
+    url: https://www21.atwiki.jp/asigami/pages/14.html
+  - foot: 15
+    url: https://www21.atwiki.jp/asigami/pages/15.html
+  - foot: 16
+    url: https://www21.atwiki.jp/asigami/pages/17.html
+  - foot: 17
+    url: https://www21.atwiki.jp/asigami/pages/18.html
   - foot: 18
     url: https://www21.atwiki.jp/asigami/pages/19.html
   - foot: 19

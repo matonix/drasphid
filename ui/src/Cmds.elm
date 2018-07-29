@@ -27,6 +27,7 @@ jsonPath =
 decodeAllSongs : Json.Decode.Decoder AllSongs
 decodeAllSongs =
     Json.Decode.Pipeline.decode AllSongs
+        |> Json.Decode.Pipeline.required "lastUpdated" Json.Decode.string
         |> Json.Decode.Pipeline.required "songsByfoot" (Json.Decode.list decodeSongsByFoot)
 
 

@@ -10,11 +10,11 @@ import Control.Lens (ix, only, (^..), (^?))
 
 import Data.Aeson.Text (encodeToLazyText)
 
-putSongsJson :: [SongsByFoot] -> IO ()
-putSongsJson = writeFileUtf8 (config ^. #output)
+putSongsJson :: Text -> [SongsByFoot] -> IO ()
+putSongsJson lastUpdatedText = writeFileUtf8 (config ^. #output)
   . TL.toStrict
   . encodeToLazyText
-  . Envelope
+  . Envelope lastUpdatedText
 
 mkSongs :: IO [SongsByFoot]
 mkSongs = forM (config ^. #feet) $ \feet -> do
