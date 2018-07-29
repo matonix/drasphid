@@ -6,16 +6,15 @@ import Html.Attributes exposing (src)
 import List
 import List.Extra
 import Material.Button as Button
+import Material.Card as Card
 import Material.Color as Color
 import Material.Elevation as Elevation
 import Material.Grid exposing (..)
 import Material.Icon as Icon
 import Material.Layout as Layout
-import Material.List as Lists
 import Material.Options exposing (..)
 import Material.Scheme as Scheme
 import Material.Slider as Slider
-import Material.Table as Table
 import Material.Typography as Typo
 import Maybe
 import Models exposing (..)
@@ -55,6 +54,9 @@ page model allSongs =
             [ Layout.fixedHeader
             , Layout.selectedTab model.selectedTab
             , Layout.onSelectTab SelectTab
+            , Layout.fixedTabs
+
+            -- , Layout.waterfall True
             ]
             { header = header model
             , drawer = []
@@ -78,7 +80,9 @@ header model =
 
 tabTitles : AllSongs -> List (Html Msg)
 tabTitles =
-    .songsByfoot >> List.map (.foot >> toString >> text)
+    .songsByfoot
+        >> List.reverse
+        >> List.map (.foot >> toString >> text)
 
 
 mainArea : Model -> AllSongs -> Html Msg
@@ -102,11 +106,18 @@ cardStyle =
 controlArea : Model -> Html Msg
 controlArea model =
     div
-        cardStyle
+        []
         [ div
             [ css "display" "table"
             , css "width" "100%"
             , css "padding" "16px"
+            , css "position" "fixed"
+            , css "bottom" "0px"
+            , css "left" "0px"
+            , css "z-index" "9999"
+            , Elevation.e2
+            , Color.background (Color.color model.layout.primary Color.S400)
+            , Color.text Color.white
             ]
             [ div
                 [ css "display" "table-cell"
@@ -114,7 +125,7 @@ controlArea model =
                 ]
                 [ styled p
                     [ Typo.body1 ]
-                    [ text ("Spped " ++ toString model.speed) ]
+                    [ text (toString model.speed) ]
                 ]
             , div
                 [ css "display" "table-cell"
@@ -135,6 +146,7 @@ controlArea model =
 viewSelectedSongs : Model -> AllSongs -> Html Msg
 viewSelectedSongs model =
     .songsByfoot
+        >> List.reverse
         >> List.Extra.getAt model.selectedTab
         >> Maybe.map (viewSongsByFoot model >> List.singleton)
         >> Maybe.withDefault []
@@ -156,9 +168,7 @@ viewSongsByFoot model songsByFoot =
                     toString songsByFoot.foot
                 )
             ]
-        , Lists.ul
-            []
-            (List.map (songRow model) songsByFoot.songs)
+        , List.map (songRow model) songsByFoot.songs |> div []
         ]
 
 
@@ -168,28 +178,21 @@ songRow model song =
         hss =
             song.bpm |> Bpm.toFloats |> List.map (Util.calcHs model.speed)
     in
-    Lists.li [ Lists.withBody ]
-        [ Lists.content []
-            [ span
-                [ css "overflow" "hidden"
-                , css "white-space" "nowrap"
-                , css "text-overflow" "ellipsis"
-                ]
-                [ text song.name ]
-            , Lists.body [ css "width" "100%", css "display" "table" ]
-                [ div [ css "width" "42.5%", css "display" "table-cell" ]
-                    [ text song.bpm ]
-                , div [ css "width" "42.5%", css "display" "table-cell" ]
-                    (hss
-                        |> List.map (\hs -> text (song.bpm |> Bpm.mapString ((*) hs)))
-                        |> List.intersperse (br [] [])
-                    )
-                , div [ css "width" "15%", css "display" "table-cell" ]
-                    (hss
-                        |> List.map (\hs -> text ("x" ++ toString hs))
-                        |> List.intersperse (br [] [])
-                    )
-                ]
+    Card.view []
+        [ Card.title [] [ text song.name ]
+        , Card.text [ css "width" "100%", css "display" "table" ]
+            [ div [ css "width" "35%", css "display" "table-cell" ]
+                [ text song.bpm ]
+            , div [ css "width" "45%", css "display" "table-cell" ]
+                (hss
+                    |> List.map (\hs -> text (song.bpm |> Bpm.mapString ((*) hs)))
+                    |> List.intersperse (br [] [])
+                )
+            , div [ css "width" "20%", css "display" "table-cell" ]
+                (hss
+                    |> List.map (\hs -> text ("x" ++ toString hs))
+                    |> List.intersperse (br [] [])
+                )
             ]
         ]
 
