@@ -19487,7 +19487,40 @@ var _user$project$View$header = function (model) {
 							}),
 						_1: {ctor: '[]'}
 					}),
-				_1: {ctor: '[]'}
+				_1: {
+					ctor: '::',
+					_0: _debois$elm_mdl$Material_Layout$spacer,
+					_1: {
+						ctor: '::',
+						_0: A2(
+							_debois$elm_mdl$Material_Layout$navigation,
+							{ctor: '[]'},
+							{
+								ctor: '::',
+								_0: A2(
+									_debois$elm_mdl$Material_Layout$link,
+									{
+										ctor: '::',
+										_0: _debois$elm_mdl$Material_Layout$href('https://github.com/matonix/drasphid'),
+										_1: {ctor: '[]'}
+									},
+									{
+										ctor: '::',
+										_0: A2(
+											_debois$elm_mdl$Material_Options$img,
+											{ctor: '[]'},
+											{
+												ctor: '::',
+												_0: _elm_lang$html$Html_Attributes$src('resources/mark-github.svg'),
+												_1: {ctor: '[]'}
+											}),
+										_1: {ctor: '[]'}
+									}),
+								_1: {ctor: '[]'}
+							}),
+						_1: {ctor: '[]'}
+					}
+				}
 			}),
 		_1: {ctor: '[]'}
 	};

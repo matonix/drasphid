@@ -74,6 +74,12 @@ header model =
         [ Layout.title []
             [ img [] [ src "resources/title.svg" ]
             ]
+        , Layout.spacer
+        , Layout.navigation []
+            [ Layout.link [ Layout.href "https://github.com/matonix/drasphid" ]
+                [ img [] [ src "resources/mark-github.svg" ]
+                ]
+            ]
         ]
     ]
 
