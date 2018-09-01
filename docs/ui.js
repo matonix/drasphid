@@ -15572,6 +15572,580 @@ var _debois$elm_mdl$Material_Elevation$elevations = _elm_lang$core$Array$fromLis
 		}
 	});
 
+//import Maybe, Native.List //
+
+var _elm_lang$core$Native_Regex = function() {
+
+function escape(str)
+{
+	return str.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+}
+function caseInsensitive(re)
+{
+	return new RegExp(re.source, 'gi');
+}
+function regex(raw)
+{
+	return new RegExp(raw, 'g');
+}
+
+function contains(re, string)
+{
+	return string.match(re) !== null;
+}
+
+function find(n, re, str)
+{
+	n = n.ctor === 'All' ? Infinity : n._0;
+	var out = [];
+	var number = 0;
+	var string = str;
+	var lastIndex = re.lastIndex;
+	var prevLastIndex = -1;
+	var result;
+	while (number++ < n && (result = re.exec(string)))
+	{
+		if (prevLastIndex === re.lastIndex) break;
+		var i = result.length - 1;
+		var subs = new Array(i);
+		while (i > 0)
+		{
+			var submatch = result[i];
+			subs[--i] = submatch === undefined
+				? _elm_lang$core$Maybe$Nothing
+				: _elm_lang$core$Maybe$Just(submatch);
+		}
+		out.push({
+			match: result[0],
+			submatches: _elm_lang$core$Native_List.fromArray(subs),
+			index: result.index,
+			number: number
+		});
+		prevLastIndex = re.lastIndex;
+	}
+	re.lastIndex = lastIndex;
+	return _elm_lang$core$Native_List.fromArray(out);
+}
+
+function replace(n, re, replacer, string)
+{
+	n = n.ctor === 'All' ? Infinity : n._0;
+	var count = 0;
+	function jsReplacer(match)
+	{
+		if (count++ >= n)
+		{
+			return match;
+		}
+		var i = arguments.length - 3;
+		var submatches = new Array(i);
+		while (i > 0)
+		{
+			var submatch = arguments[i];
+			submatches[--i] = submatch === undefined
+				? _elm_lang$core$Maybe$Nothing
+				: _elm_lang$core$Maybe$Just(submatch);
+		}
+		return replacer({
+			match: match,
+			submatches: _elm_lang$core$Native_List.fromArray(submatches),
+			index: arguments[arguments.length - 2],
+			number: count
+		});
+	}
+	return string.replace(re, jsReplacer);
+}
+
+function split(n, re, str)
+{
+	n = n.ctor === 'All' ? Infinity : n._0;
+	if (n === Infinity)
+	{
+		return _elm_lang$core$Native_List.fromArray(str.split(re));
+	}
+	var string = str;
+	var result;
+	var out = [];
+	var start = re.lastIndex;
+	var restoreLastIndex = re.lastIndex;
+	while (n--)
+	{
+		if (!(result = re.exec(string))) break;
+		out.push(string.slice(start, result.index));
+		start = re.lastIndex;
+	}
+	out.push(string.slice(start));
+	re.lastIndex = restoreLastIndex;
+	return _elm_lang$core$Native_List.fromArray(out);
+}
+
+return {
+	regex: regex,
+	caseInsensitive: caseInsensitive,
+	escape: escape,
+
+	contains: F2(contains),
+	find: F3(find),
+	replace: F4(replace),
+	split: F3(split)
+};
+
+}();
+
+var _elm_lang$core$Regex$split = _elm_lang$core$Native_Regex.split;
+var _elm_lang$core$Regex$replace = _elm_lang$core$Native_Regex.replace;
+var _elm_lang$core$Regex$find = _elm_lang$core$Native_Regex.find;
+var _elm_lang$core$Regex$contains = _elm_lang$core$Native_Regex.contains;
+var _elm_lang$core$Regex$caseInsensitive = _elm_lang$core$Native_Regex.caseInsensitive;
+var _elm_lang$core$Regex$regex = _elm_lang$core$Native_Regex.regex;
+var _elm_lang$core$Regex$escape = _elm_lang$core$Native_Regex.escape;
+var _elm_lang$core$Regex$Match = F4(
+	function (a, b, c, d) {
+		return {match: a, submatches: b, index: c, number: d};
+	});
+var _elm_lang$core$Regex$Regex = {ctor: 'Regex'};
+var _elm_lang$core$Regex$AtMost = function (a) {
+	return {ctor: 'AtMost', _0: a};
+};
+var _elm_lang$core$Regex$All = {ctor: 'All'};
+
+var _debois$elm_mdl$Material_Footer$tempPrefix = '{{prefix}}';
+var _debois$elm_mdl$Material_Footer$prefixRegex = _elm_lang$core$Regex$regex(_debois$elm_mdl$Material_Footer$tempPrefix);
+var _debois$elm_mdl$Material_Footer$removePrefix = A3(
+	_elm_lang$core$Regex$replace,
+	_elm_lang$core$Regex$All,
+	_debois$elm_mdl$Material_Footer$prefixRegex,
+	function (_p0) {
+		return '';
+	});
+var _debois$elm_mdl$Material_Footer$prefixedClass = function (cls) {
+	return _debois$elm_mdl$Material_Options$cs(
+		A2(_elm_lang$core$Basics_ops['++'], _debois$elm_mdl$Material_Footer$tempPrefix, cls));
+};
+var _debois$elm_mdl$Material_Footer$socialBtn = _debois$elm_mdl$Material_Footer$prefixedClass('social-btn');
+var _debois$elm_mdl$Material_Footer$headingClass = _debois$elm_mdl$Material_Footer$prefixedClass('heading');
+var _debois$elm_mdl$Material_Footer$href = function (_p1) {
+	return _debois$elm_mdl$Material_Options_Internal$attribute(
+		_elm_lang$html$Html_Attributes$href(_p1));
+};
+var _debois$elm_mdl$Material_Footer$separator = '__';
+var _debois$elm_mdl$Material_Footer$prefix = function (tp) {
+	var _p2 = tp;
+	if (_p2.ctor === 'Mini') {
+		return 'mdl-mini-footer';
+	} else {
+		return 'mdl-mega-footer';
+	}
+};
+var _debois$elm_mdl$Material_Footer$applyPrefix = F2(
+	function (tp, prop) {
+		var sep = _debois$elm_mdl$Material_Footer$separator;
+		var pref = _debois$elm_mdl$Material_Footer$prefix(tp);
+		var _p3 = prop;
+		switch (_p3.ctor) {
+			case 'Class':
+				var _p4 = _p3._0;
+				return A2(_elm_lang$core$String$startsWith, _debois$elm_mdl$Material_Footer$tempPrefix, _p4) ? _debois$elm_mdl$Material_Options$cs(
+					A2(
+						_elm_lang$core$Basics_ops['++'],
+						pref,
+						A2(
+							_elm_lang$core$Basics_ops['++'],
+							sep,
+							_debois$elm_mdl$Material_Footer$removePrefix(_p4)))) : prop;
+			case 'Many':
+				return _debois$elm_mdl$Material_Options$many(
+					A2(
+						_elm_lang$core$List$map,
+						_debois$elm_mdl$Material_Footer$applyPrefix(tp),
+						_p3._0));
+			default:
+				return prop;
+		}
+	});
+var _debois$elm_mdl$Material_Footer$toHtml = F2(
+	function (tp, _p5) {
+		var _p6 = _p5;
+		var styles_ = A2(
+			_elm_lang$core$List$map,
+			_debois$elm_mdl$Material_Footer$applyPrefix(tp),
+			_p6.styles);
+		return A3(
+			_debois$elm_mdl$Material_Options$styled,
+			_p6.elem,
+			styles_,
+			A2(
+				_elm_lang$core$List$map,
+				_debois$elm_mdl$Material_Footer$contentToHtml(tp),
+				_p6.content));
+	});
+var _debois$elm_mdl$Material_Footer$contentToHtml = F2(
+	function (tp, content) {
+		var _p7 = content;
+		if (_p7.ctor === 'HtmlContent') {
+			return _p7._0;
+		} else {
+			return A2(_debois$elm_mdl$Material_Footer$toHtml, tp, _p7._0);
+		}
+	});
+var _debois$elm_mdl$Material_Footer$sectionContent = F3(
+	function (tp, section, content) {
+		var sep = _debois$elm_mdl$Material_Footer$separator;
+		var pref = _debois$elm_mdl$Material_Footer$prefix(tp);
+		var _p8 = content;
+		if (_p8.ctor === 'HtmlContent') {
+			return A3(
+				_debois$elm_mdl$Material_Options$styled,
+				_elm_lang$html$Html$div,
+				{
+					ctor: '::',
+					_0: _debois$elm_mdl$Material_Options$cs(
+						A2(
+							_elm_lang$core$Basics_ops['++'],
+							pref,
+							A2(_elm_lang$core$Basics_ops['++'], sep, section))),
+					_1: {ctor: '[]'}
+				},
+				{
+					ctor: '::',
+					_0: _p8._0,
+					_1: {ctor: '[]'}
+				});
+		} else {
+			return A3(
+				_debois$elm_mdl$Material_Options$styled,
+				_p8._0.elem,
+				{
+					ctor: '::',
+					_0: _debois$elm_mdl$Material_Options$cs(
+						A2(
+							_elm_lang$core$Basics_ops['++'],
+							pref,
+							A2(_elm_lang$core$Basics_ops['++'], sep, section))),
+					_1: _p8._0.styles
+				},
+				A2(
+					_elm_lang$core$List$map,
+					_debois$elm_mdl$Material_Footer$contentToHtml(tp),
+					_p8._0.content));
+		}
+	});
+var _debois$elm_mdl$Material_Footer$leftHtml = F2(
+	function (tp, left) {
+		var _p9 = left;
+		if (_p9.ctor === 'Just') {
+			return {
+				ctor: '::',
+				_0: A3(_debois$elm_mdl$Material_Footer$sectionContent, tp, 'left-section', _p9._0._0),
+				_1: {ctor: '[]'}
+			};
+		} else {
+			return {ctor: '[]'};
+		}
+	});
+var _debois$elm_mdl$Material_Footer$rightHtml = F2(
+	function (tp, right) {
+		var _p10 = right;
+		if (_p10.ctor === 'Just') {
+			return {
+				ctor: '::',
+				_0: A3(_debois$elm_mdl$Material_Footer$sectionContent, tp, 'right-section', _p10._0._0),
+				_1: {ctor: '[]'}
+			};
+		} else {
+			return {ctor: '[]'};
+		}
+	});
+var _debois$elm_mdl$Material_Footer$Footer = F3(
+	function (a, b, c) {
+		return {styles: a, content: b, elem: c};
+	});
+var _debois$elm_mdl$Material_Footer$MiniFooter = F2(
+	function (a, b) {
+		return {left: a, right: b};
+	});
+var _debois$elm_mdl$Material_Footer$MegaFooter = F3(
+	function (a, b, c) {
+		return {top: a, bottom: b, middle: c};
+	});
+var _debois$elm_mdl$Material_Footer$Mega = {ctor: 'Mega'};
+var _debois$elm_mdl$Material_Footer$mega = F2(
+	function (props, _p11) {
+		var _p12 = _p11;
+		var sep = _debois$elm_mdl$Material_Footer$separator;
+		var tp = _debois$elm_mdl$Material_Footer$Mega;
+		var pref = _debois$elm_mdl$Material_Footer$prefix(tp);
+		var topContent = function () {
+			var _p13 = _p12.top;
+			if (_p13.ctor === 'Nothing') {
+				return {ctor: '[]'};
+			} else {
+				return {
+					ctor: '::',
+					_0: A3(
+						_debois$elm_mdl$Material_Options$styled,
+						_elm_lang$html$Html$div,
+						{
+							ctor: '::',
+							_0: _debois$elm_mdl$Material_Options$cs(
+								A2(
+									_elm_lang$core$Basics_ops['++'],
+									pref,
+									A2(_elm_lang$core$Basics_ops['++'], sep, 'top-section'))),
+							_1: _p13._0._0.props
+						},
+						A2(
+							_elm_lang$core$Basics_ops['++'],
+							A2(_debois$elm_mdl$Material_Footer$leftHtml, tp, _p13._0._0.left),
+							A2(_debois$elm_mdl$Material_Footer$rightHtml, tp, _p13._0._0.right))),
+					_1: {ctor: '[]'}
+				};
+			}
+		}();
+		var middleContent = function () {
+			var _p14 = _p12.middle;
+			if (_p14.ctor === 'Nothing') {
+				return {ctor: '[]'};
+			} else {
+				return {
+					ctor: '::',
+					_0: A3(
+						_debois$elm_mdl$Material_Options$styled,
+						_elm_lang$html$Html$div,
+						{
+							ctor: '::',
+							_0: _debois$elm_mdl$Material_Options$cs(
+								A2(
+									_elm_lang$core$Basics_ops['++'],
+									pref,
+									A2(_elm_lang$core$Basics_ops['++'], sep, 'middle-section'))),
+							_1: _p14._0._0.props
+						},
+						A2(
+							_elm_lang$core$List$map,
+							_debois$elm_mdl$Material_Footer$contentToHtml(tp),
+							_p14._0._0.content)),
+					_1: {ctor: '[]'}
+				};
+			}
+		}();
+		var bottomContent = function () {
+			var _p15 = _p12.bottom;
+			if (_p15.ctor === 'Nothing') {
+				return {ctor: '[]'};
+			} else {
+				return {
+					ctor: '::',
+					_0: A3(
+						_debois$elm_mdl$Material_Options$styled,
+						_elm_lang$html$Html$div,
+						{
+							ctor: '::',
+							_0: _debois$elm_mdl$Material_Options$cs(
+								A2(
+									_elm_lang$core$Basics_ops['++'],
+									pref,
+									A2(_elm_lang$core$Basics_ops['++'], sep, 'bottom-section'))),
+							_1: _p15._0._0.props
+						},
+						A2(
+							_elm_lang$core$Basics_ops['++'],
+							{ctor: '[]'},
+							A2(
+								_elm_lang$core$List$map,
+								_debois$elm_mdl$Material_Footer$contentToHtml(tp),
+								_p15._0._0.content))),
+					_1: {ctor: '[]'}
+				};
+			}
+		}();
+		return A3(
+			_debois$elm_mdl$Material_Options$styled,
+			_elm_lang$html$Html$footer,
+			{
+				ctor: '::',
+				_0: _debois$elm_mdl$Material_Options$cs(pref),
+				_1: props
+			},
+			A2(
+				_elm_lang$core$Basics_ops['++'],
+				topContent,
+				A2(_elm_lang$core$Basics_ops['++'], middleContent, bottomContent)));
+	});
+var _debois$elm_mdl$Material_Footer$Mini = {ctor: 'Mini'};
+var _debois$elm_mdl$Material_Footer$mini = F2(
+	function (props, _p16) {
+		var _p17 = _p16;
+		var tp = _debois$elm_mdl$Material_Footer$Mini;
+		var pref = _debois$elm_mdl$Material_Footer$prefix(tp);
+		var leftContent = A2(_debois$elm_mdl$Material_Footer$leftHtml, tp, _p17.left);
+		var rightContent = A2(_debois$elm_mdl$Material_Footer$rightHtml, tp, _p17.right);
+		return A3(
+			_debois$elm_mdl$Material_Options$styled,
+			_elm_lang$html$Html$footer,
+			{
+				ctor: '::',
+				_0: _debois$elm_mdl$Material_Options$cs(pref),
+				_1: props
+			},
+			A2(_elm_lang$core$Basics_ops['++'], leftContent, rightContent));
+	});
+var _debois$elm_mdl$Material_Footer$FooterProperty = {ctor: 'FooterProperty'};
+var _debois$elm_mdl$Material_Footer$Content = function (a) {
+	return {ctor: 'Content', _0: a};
+};
+var _debois$elm_mdl$Material_Footer$logo = F2(
+	function (styles, content) {
+		return _debois$elm_mdl$Material_Footer$Content(
+			{
+				styles: {
+					ctor: '::',
+					_0: _debois$elm_mdl$Material_Options$cs('mdl-logo'),
+					_1: styles
+				},
+				content: content,
+				elem: _elm_lang$html$Html$div
+			});
+	});
+var _debois$elm_mdl$Material_Footer$links = F2(
+	function (styles, content) {
+		return _debois$elm_mdl$Material_Footer$Content(
+			{
+				styles: {
+					ctor: '::',
+					_0: _debois$elm_mdl$Material_Footer$prefixedClass('link-list'),
+					_1: styles
+				},
+				content: content,
+				elem: _elm_lang$html$Html$ul
+			});
+	});
+var _debois$elm_mdl$Material_Footer$linkItem = F2(
+	function (styles, content) {
+		return _debois$elm_mdl$Material_Footer$Content(
+			{
+				styles: {ctor: '[]'},
+				content: {
+					ctor: '::',
+					_0: _debois$elm_mdl$Material_Footer$Content(
+						{styles: styles, content: content, elem: _elm_lang$html$Html$a}),
+					_1: {ctor: '[]'}
+				},
+				elem: _elm_lang$html$Html$li
+			});
+	});
+var _debois$elm_mdl$Material_Footer$heading = F2(
+	function (styles, content) {
+		return _debois$elm_mdl$Material_Footer$Content(
+			{
+				styles: {ctor: '::', _0: _debois$elm_mdl$Material_Footer$headingClass, _1: styles},
+				content: content,
+				elem: _elm_lang$html$Html$h1
+			});
+	});
+var _debois$elm_mdl$Material_Footer$socialButton = F2(
+	function (styles, content) {
+		return _debois$elm_mdl$Material_Footer$Content(
+			{
+				styles: {ctor: '::', _0: _debois$elm_mdl$Material_Footer$socialBtn, _1: styles},
+				content: content,
+				elem: _elm_lang$html$Html$button
+			});
+	});
+var _debois$elm_mdl$Material_Footer$HtmlContent = function (a) {
+	return {ctor: 'HtmlContent', _0: a};
+};
+var _debois$elm_mdl$Material_Footer$checkbox = _debois$elm_mdl$Material_Footer$HtmlContent(
+	A2(
+		_elm_lang$html$Html$input,
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html_Attributes$class('mdl-mega-footer__heading-checkbox'),
+			_1: {
+				ctor: '::',
+				_0: _elm_lang$html$Html_Attributes$type_('checkbox'),
+				_1: {
+					ctor: '::',
+					_0: A2(_elm_lang$html$Html_Attributes$attribute, 'checked', ''),
+					_1: {ctor: '[]'}
+				}
+			}
+		},
+		{ctor: '[]'}));
+var _debois$elm_mdl$Material_Footer$dropdown = F2(
+	function (props, content) {
+		return _debois$elm_mdl$Material_Footer$Content(
+			{
+				styles: {
+					ctor: '::',
+					_0: _debois$elm_mdl$Material_Options$cs('mdl-mega-footer__drop-down-section'),
+					_1: props
+				},
+				content: {ctor: '::', _0: _debois$elm_mdl$Material_Footer$checkbox, _1: content},
+				elem: _elm_lang$html$Html$div
+			});
+	});
+var _debois$elm_mdl$Material_Footer$html = _debois$elm_mdl$Material_Footer$HtmlContent;
+var _debois$elm_mdl$Material_Footer$link = F2(
+	function (styles, contents) {
+		return _debois$elm_mdl$Material_Footer$html(
+			A3(_debois$elm_mdl$Material_Options$styled, _elm_lang$html$Html$a, styles, contents));
+	});
+var _debois$elm_mdl$Material_Footer$li = F2(
+	function (styles, content) {
+		return _debois$elm_mdl$Material_Footer$html(
+			A3(_debois$elm_mdl$Material_Options$styled, _elm_lang$html$Html$li, styles, content));
+	});
+var _debois$elm_mdl$Material_Footer$Section = function (a) {
+	return {ctor: 'Section', _0: a};
+};
+var _debois$elm_mdl$Material_Footer$left = F2(
+	function (styles, content) {
+		return function (_p18) {
+			return _elm_lang$core$Maybe$Just(
+				_debois$elm_mdl$Material_Footer$Section(_p18));
+		}(
+			_debois$elm_mdl$Material_Footer$Content(
+				{styles: styles, content: content, elem: _elm_lang$html$Html$div}));
+	});
+var _debois$elm_mdl$Material_Footer$right = F2(
+	function (styles, content) {
+		return function (_p19) {
+			return _elm_lang$core$Maybe$Just(
+				_debois$elm_mdl$Material_Footer$Section(_p19));
+		}(
+			_debois$elm_mdl$Material_Footer$Content(
+				{styles: styles, content: content, elem: _elm_lang$html$Html$div}));
+	});
+var _debois$elm_mdl$Material_Footer$TopSection = function (a) {
+	return {ctor: 'TopSection', _0: a};
+};
+var _debois$elm_mdl$Material_Footer$top = F2(
+	function (props, _p20) {
+		var _p21 = _p20;
+		return _elm_lang$core$Maybe$Just(
+			_debois$elm_mdl$Material_Footer$TopSection(
+				{left: _p21.left, right: _p21.right, props: props}));
+	});
+var _debois$elm_mdl$Material_Footer$BottomSection = function (a) {
+	return {ctor: 'BottomSection', _0: a};
+};
+var _debois$elm_mdl$Material_Footer$bottom = F2(
+	function (props, content) {
+		return _elm_lang$core$Maybe$Just(
+			_debois$elm_mdl$Material_Footer$BottomSection(
+				{props: props, content: content}));
+	});
+var _debois$elm_mdl$Material_Footer$MiddleSection = function (a) {
+	return {ctor: 'MiddleSection', _0: a};
+};
+var _debois$elm_mdl$Material_Footer$middle = F2(
+	function (props, content) {
+		return _elm_lang$core$Maybe$Just(
+			_debois$elm_mdl$Material_Footer$MiddleSection(
+				{props: props, content: content}));
+	});
+
 var _debois$elm_mdl$Material_Grid$clip = F3(
 	function (lower, upper, k) {
 		return A2(
@@ -19078,6 +19652,190 @@ var _user$project$Util$calcHs = F2(
 					_user$project$Util$hss)));
 	});
 
+var _user$project$View$footer = function (allSongs) {
+	return A2(
+		_debois$elm_mdl$Material_Footer$mini,
+		{ctor: '[]'},
+		{
+			left: A2(
+				_debois$elm_mdl$Material_Footer$left,
+				{ctor: '[]'},
+				{
+					ctor: '::',
+					_0: A2(
+						_debois$elm_mdl$Material_Footer$logo,
+						{ctor: '[]'},
+						{
+							ctor: '::',
+							_0: _debois$elm_mdl$Material_Footer$html(
+								A2(
+									_debois$elm_mdl$Material_Options$div,
+									{
+										ctor: '::',
+										_0: A2(_debois$elm_mdl$Material_Options$css, 'height', '88px'),
+										_1: {ctor: '[]'}
+									},
+									{
+										ctor: '::',
+										_0: _elm_lang$html$Html$text('Last updated from '),
+										_1: {
+											ctor: '::',
+											_0: A2(
+												_elm_lang$html$Html$a,
+												{
+													ctor: '::',
+													_0: _elm_lang$html$Html_Attributes$href('https://www21.atwiki.jp/asigami/'),
+													_1: {ctor: '[]'}
+												},
+												{
+													ctor: '::',
+													_0: _elm_lang$html$Html$text('SP wiki'),
+													_1: {ctor: '[]'}
+												}),
+											_1: {
+												ctor: '::',
+												_0: _elm_lang$html$Html$text(
+													A2(_elm_lang$core$Basics_ops['++'], ': ', allSongs.lastUpdated)),
+												_1: {ctor: '[]'}
+											}
+										}
+									})),
+							_1: {ctor: '[]'}
+						}),
+					_1: {ctor: '[]'}
+				}),
+			right: A2(
+				_debois$elm_mdl$Material_Footer$right,
+				{ctor: '[]'},
+				{ctor: '[]'})
+		});
+};
+var _user$project$View$controlArea = function (model) {
+	return A2(
+		_debois$elm_mdl$Material_Options$div,
+		{ctor: '[]'},
+		{
+			ctor: '::',
+			_0: A2(
+				_debois$elm_mdl$Material_Options$div,
+				{
+					ctor: '::',
+					_0: A2(_debois$elm_mdl$Material_Options$css, 'display', 'table'),
+					_1: {
+						ctor: '::',
+						_0: A2(_debois$elm_mdl$Material_Options$css, 'width', '100%'),
+						_1: {
+							ctor: '::',
+							_0: A2(_debois$elm_mdl$Material_Options$css, 'padding', '16px'),
+							_1: {
+								ctor: '::',
+								_0: A2(_debois$elm_mdl$Material_Options$css, 'position', 'fixed'),
+								_1: {
+									ctor: '::',
+									_0: A2(_debois$elm_mdl$Material_Options$css, 'bottom', '0px'),
+									_1: {
+										ctor: '::',
+										_0: A2(_debois$elm_mdl$Material_Options$css, 'left', '0px'),
+										_1: {
+											ctor: '::',
+											_0: A2(_debois$elm_mdl$Material_Options$css, 'z-index', '9999'),
+											_1: {
+												ctor: '::',
+												_0: _debois$elm_mdl$Material_Elevation$e2,
+												_1: {
+													ctor: '::',
+													_0: _debois$elm_mdl$Material_Color$background(
+														A2(_debois$elm_mdl$Material_Color$color, model.layout.primary, _debois$elm_mdl$Material_Color$S400)),
+													_1: {
+														ctor: '::',
+														_0: _debois$elm_mdl$Material_Color$text(_debois$elm_mdl$Material_Color$white),
+														_1: {ctor: '[]'}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				},
+				{
+					ctor: '::',
+					_0: A2(
+						_debois$elm_mdl$Material_Options$div,
+						{
+							ctor: '::',
+							_0: A2(_debois$elm_mdl$Material_Options$css, 'display', 'table-cell'),
+							_1: {
+								ctor: '::',
+								_0: A2(_debois$elm_mdl$Material_Options$css, 'width', '10%'),
+								_1: {ctor: '[]'}
+							}
+						},
+						{
+							ctor: '::',
+							_0: A3(
+								_debois$elm_mdl$Material_Options$styled,
+								_elm_lang$html$Html$p,
+								{
+									ctor: '::',
+									_0: _debois$elm_mdl$Material_Typography$body1,
+									_1: {ctor: '[]'}
+								},
+								{
+									ctor: '::',
+									_0: _elm_lang$html$Html$text(
+										_elm_lang$core$Basics$toString(model.speed)),
+									_1: {ctor: '[]'}
+								}),
+							_1: {ctor: '[]'}
+						}),
+					_1: {
+						ctor: '::',
+						_0: A2(
+							_debois$elm_mdl$Material_Options$div,
+							{
+								ctor: '::',
+								_0: A2(_debois$elm_mdl$Material_Options$css, 'display', 'table-cell'),
+								_1: {
+									ctor: '::',
+									_0: A2(_debois$elm_mdl$Material_Options$css, 'width', '90%'),
+									_1: {ctor: '[]'}
+								}
+							},
+							{
+								ctor: '::',
+								_0: _debois$elm_mdl$Material_Slider$view(
+									{
+										ctor: '::',
+										_0: _debois$elm_mdl$Material_Slider$onChange(_user$project$Msgs$Slider),
+										_1: {
+											ctor: '::',
+											_0: _debois$elm_mdl$Material_Slider$value(model.speed),
+											_1: {
+												ctor: '::',
+												_0: _debois$elm_mdl$Material_Slider$max(900),
+												_1: {
+													ctor: '::',
+													_0: _debois$elm_mdl$Material_Slider$min(100),
+													_1: {
+														ctor: '::',
+														_0: _debois$elm_mdl$Material_Slider$step(10),
+														_1: {ctor: '[]'}
+													}
+												}
+											}
+										}
+									}),
+								_1: {ctor: '[]'}
+							}),
+						_1: {ctor: '[]'}
+					}
+				}),
+			_1: {ctor: '[]'}
+		});
+};
 var _user$project$View$rtext = F2(
 	function (model, str) {
 		return A2(
@@ -19223,132 +19981,6 @@ var _user$project$View$songRow = F2(
 				}
 			});
 	});
-var _user$project$View$controlArea = function (model) {
-	return A2(
-		_debois$elm_mdl$Material_Options$div,
-		{ctor: '[]'},
-		{
-			ctor: '::',
-			_0: A2(
-				_debois$elm_mdl$Material_Options$div,
-				{
-					ctor: '::',
-					_0: A2(_debois$elm_mdl$Material_Options$css, 'display', 'table'),
-					_1: {
-						ctor: '::',
-						_0: A2(_debois$elm_mdl$Material_Options$css, 'width', '100%'),
-						_1: {
-							ctor: '::',
-							_0: A2(_debois$elm_mdl$Material_Options$css, 'padding', '16px'),
-							_1: {
-								ctor: '::',
-								_0: A2(_debois$elm_mdl$Material_Options$css, 'position', 'fixed'),
-								_1: {
-									ctor: '::',
-									_0: A2(_debois$elm_mdl$Material_Options$css, 'bottom', '0px'),
-									_1: {
-										ctor: '::',
-										_0: A2(_debois$elm_mdl$Material_Options$css, 'left', '0px'),
-										_1: {
-											ctor: '::',
-											_0: A2(_debois$elm_mdl$Material_Options$css, 'z-index', '9999'),
-											_1: {
-												ctor: '::',
-												_0: _debois$elm_mdl$Material_Elevation$e2,
-												_1: {
-													ctor: '::',
-													_0: _debois$elm_mdl$Material_Color$background(
-														A2(_debois$elm_mdl$Material_Color$color, model.layout.primary, _debois$elm_mdl$Material_Color$S400)),
-													_1: {
-														ctor: '::',
-														_0: _debois$elm_mdl$Material_Color$text(_debois$elm_mdl$Material_Color$white),
-														_1: {ctor: '[]'}
-													}
-												}
-											}
-										}
-									}
-								}
-							}
-						}
-					}
-				},
-				{
-					ctor: '::',
-					_0: A2(
-						_debois$elm_mdl$Material_Options$div,
-						{
-							ctor: '::',
-							_0: A2(_debois$elm_mdl$Material_Options$css, 'display', 'table-cell'),
-							_1: {
-								ctor: '::',
-								_0: A2(_debois$elm_mdl$Material_Options$css, 'width', '10%'),
-								_1: {ctor: '[]'}
-							}
-						},
-						{
-							ctor: '::',
-							_0: A3(
-								_debois$elm_mdl$Material_Options$styled,
-								_elm_lang$html$Html$p,
-								{
-									ctor: '::',
-									_0: _debois$elm_mdl$Material_Typography$body1,
-									_1: {ctor: '[]'}
-								},
-								{
-									ctor: '::',
-									_0: _elm_lang$html$Html$text(
-										_elm_lang$core$Basics$toString(model.speed)),
-									_1: {ctor: '[]'}
-								}),
-							_1: {ctor: '[]'}
-						}),
-					_1: {
-						ctor: '::',
-						_0: A2(
-							_debois$elm_mdl$Material_Options$div,
-							{
-								ctor: '::',
-								_0: A2(_debois$elm_mdl$Material_Options$css, 'display', 'table-cell'),
-								_1: {
-									ctor: '::',
-									_0: A2(_debois$elm_mdl$Material_Options$css, 'width', '90%'),
-									_1: {ctor: '[]'}
-								}
-							},
-							{
-								ctor: '::',
-								_0: _debois$elm_mdl$Material_Slider$view(
-									{
-										ctor: '::',
-										_0: _debois$elm_mdl$Material_Slider$onChange(_user$project$Msgs$Slider),
-										_1: {
-											ctor: '::',
-											_0: _debois$elm_mdl$Material_Slider$value(model.speed),
-											_1: {
-												ctor: '::',
-												_0: _debois$elm_mdl$Material_Slider$max(900),
-												_1: {
-													ctor: '::',
-													_0: _debois$elm_mdl$Material_Slider$min(100),
-													_1: {
-														ctor: '::',
-														_0: _debois$elm_mdl$Material_Slider$step(10),
-														_1: {ctor: '[]'}
-													}
-												}
-											}
-										}
-									}),
-								_1: {ctor: '[]'}
-							}),
-						_1: {ctor: '[]'}
-					}
-				}),
-			_1: {ctor: '[]'}
-		});
-};
 var _user$project$View$cardStyle = {
 	ctor: '::',
 	_0: A2(_debois$elm_mdl$Material_Options$css, 'max-width', '800px'),
@@ -19443,7 +20075,11 @@ var _user$project$View$mainArea = F2(
 						_1: {
 							ctor: '::',
 							_0: A2(_user$project$View$viewSelectedSongs, model, allSongs),
-							_1: {ctor: '[]'}
+							_1: {
+								ctor: '::',
+								_0: _user$project$View$footer(allSongs),
+								_1: {ctor: '[]'}
+							}
 						}
 					}),
 				_1: {ctor: '[]'}

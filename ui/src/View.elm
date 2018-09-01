@@ -1,14 +1,15 @@
 module View exposing (..)
 
 import Bpm
-import Html exposing (Html, b, br, p, text)
-import Html.Attributes exposing (src)
+import Html exposing (Html, a, b, br, p, text)
+import Html.Attributes exposing (href, src)
 import List
 import List.Extra
 import Material.Button as Button
 import Material.Card as Card
 import Material.Color as Color
 import Material.Elevation as Elevation
+import Material.Footer as Footer
 import Material.Grid exposing (..)
 import Material.Icon as Icon
 import Material.Layout as Layout
@@ -97,6 +98,7 @@ mainArea model allSongs =
         [ div []
             [ controlArea model
             , viewSelectedSongs model allSongs
+            , footer allSongs
             ]
         ]
 
@@ -107,46 +109,6 @@ cardStyle =
     , css "margin" "16px"
     , Elevation.e2
     ]
-
-
-controlArea : Model -> Html Msg
-controlArea model =
-    div
-        []
-        [ div
-            [ css "display" "table"
-            , css "width" "100%"
-            , css "padding" "16px"
-            , css "position" "fixed"
-            , css "bottom" "0px"
-            , css "left" "0px"
-            , css "z-index" "9999"
-            , Elevation.e2
-            , Color.background (Color.color model.layout.primary Color.S400)
-            , Color.text Color.white
-            ]
-            [ div
-                [ css "display" "table-cell"
-                , css "width" "10%"
-                ]
-                [ styled p
-                    [ Typo.body1 ]
-                    [ text (toString model.speed) ]
-                ]
-            , div
-                [ css "display" "table-cell"
-                , css "width" "90%"
-                ]
-                [ Slider.view
-                    [ Slider.onChange Slider
-                    , Slider.value model.speed
-                    , Slider.max 900
-                    , Slider.min 100
-                    , Slider.step 10
-                    ]
-                ]
-            ]
-        ]
 
 
 viewSelectedSongs : Model -> AllSongs -> Html Msg
@@ -213,3 +175,63 @@ rtext model str =
     span
         [ Color.text (Color.color model.layout.accent Color.A400) ]
         [ text str ]
+
+
+controlArea : Model -> Html Msg
+controlArea model =
+    div
+        []
+        [ div
+            [ css "display" "table"
+            , css "width" "100%"
+            , css "padding" "16px"
+            , css "position" "fixed"
+            , css "bottom" "0px"
+            , css "left" "0px"
+            , css "z-index" "9999"
+            , Elevation.e2
+            , Color.background (Color.color model.layout.primary Color.S400)
+            , Color.text Color.white
+            ]
+            [ div
+                [ css "display" "table-cell"
+                , css "width" "10%"
+                ]
+                [ styled p
+                    [ Typo.body1 ]
+                    [ text (toString model.speed) ]
+                ]
+            , div
+                [ css "display" "table-cell"
+                , css "width" "90%"
+                ]
+                [ Slider.view
+                    [ Slider.onChange Slider
+                    , Slider.value model.speed
+                    , Slider.max 900
+                    , Slider.min 100
+                    , Slider.step 10
+                    ]
+                ]
+            ]
+        ]
+
+
+footer : AllSongs -> Html Msg
+footer allSongs =
+    Footer.mini []
+        { left =
+            Footer.left []
+                [ Footer.logo []
+                    [ Footer.html <|
+                        div [ css "height" "88px" ]
+                            [ text "Last updated from "
+                            , a [ href "https://www21.atwiki.jp/asigami/" ] [ text "SP wiki" ]
+                            , text <| ": " ++ allSongs.lastUpdated
+                            ]
+                    ]
+                ]
+        , right =
+            Footer.right []
+                []
+        }
